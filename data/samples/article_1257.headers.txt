@@ -1,0 +1,15 @@
+HTTP/2 301 
+x-powered-by: PHP/7.3.33
+location: /article/1257/gaussian-splatting-for-animation-emerging-workflows-and-hybrid-pipelines
+content-length: 0
+content-type: text/html; charset=UTF-8
+date: Tue, 13 Oct 2026 09:28:04 GMT
+server: Apache
+
+HTTP/2 200 
+x-powered-by: PHP/7.3.33
+vary: Accept-Encoding
+content-type: text/html; charset=UTF-8
+date: Tue, 13 Oct 2026 09:28:04 GMT
+server: Apache
+
