@@ -1,0 +1,61 @@
+name: Fetch official program
+
+# Downloads the official VIEW Conference program page (and the assets it
+# loads) into data/source/ so it can be parsed into data/program.json.
+on:
+  push:
+    paths:
+      - .github/workflows/fetch-program.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download program page and linked assets
+        run: |
+          set -euo pipefail
+          BASE="https://www.viewconference.it"
+          UA="Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+          OUT=data/source
+          mkdir -p "$OUT"
+          curl -sSL --fail -A "$UA" -D "$OUT/view_CET.headers.txt" \
+            "$BASE/assets/html/view_CET.html?v=56" -o "$OUT/view_CET.html"
+          ls -la "$OUT"
+          # Fetch same-site scripts/styles the page references, in case the
+          # sessions are rendered from JS/JSON rather than static HTML.
+          grep -oE '(src|href)="[^"]+"' "$OUT/view_CET.html" | sed -E 's/^(src|href)="//; s/"$//' | sort -u > "$OUT/referenced.txt" || true
+          cat "$OUT/referenced.txt"
+          mkdir -p "$OUT/assets"
+          while read -r ref; do
+            case "$ref" in
+              http*://www.viewconference.it/*|http*://viewconference.it/*) url="$ref" ;;
+              http*|//*|mailto:*|\#*|data:*) continue ;;
+              /*) url="$BASE$ref" ;;
+              *) url="$BASE/assets/html/$ref" ;;
+            esac
+            case "$url" in
+              *.js*|*.json*|*.css*) ;;
+              *) continue ;;
+            esac
+            name=$(echo "$url" | sed -E 's#^https?://##; s#[^A-Za-z0-9._-]#_#g')
+            curl -sSL --fail -A "$UA" "$url" -o "$OUT/assets/$name" || echo "failed: $url"
+          done < "$OUT/referenced.txt"
+          ls -la "$OUT/assets"
+
+      - name: Commit downloaded files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/source
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Fetch official VIEW 2026 program page"
+            git push
+          fi
