@@ -1,0 +1,31 @@
+name: Fetch sample pages (temporary)
+
+on:
+  push:
+    paths:
+      - .github/workflows/fetch-samples.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download a few article and speaker pages
+        run: |
+          set -euo pipefail
+          mkdir -p data/samples
+          UA="Mozilla/5.0 (compatible; view26-program-sync)"
+          for path in article/1301 article/1218 article/1257 speaker/steve-emerson; do
+            name=$(echo "$path" | tr '/' '_')
+            curl -sSL --fail -A "$UA" -D "data/samples/$name.headers.txt" "https://www.viewconference.it/$path" -o "data/samples/$name.html" || echo "failed $path"
+          done
+          ls -la data/samples
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/samples
+          git commit -m "Fetch sample article and speaker pages" && git push || echo "nothing to commit"
