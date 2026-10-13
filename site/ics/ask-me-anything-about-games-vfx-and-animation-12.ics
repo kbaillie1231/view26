@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ask-me-anything-about-games-vfx-and-animation-12@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T131500Z
+DTEND:20261012T141500Z
+SUMMARY:Ask me Anything about Games\, VFX and Animation
+LOCATION:POLIFUNZIONALE\, ITS ICT - Piazza dei Mestieri - Via Jacopo Duran
+ di\, 13 - Torino
+DESCRIPTION:Ask Me Anything. With Hal Hickel (Animation Director\, Industr
+ ial Light & Magic (ILM)\, Oscar\, BAFTA winner)\, Jan-Bart van Beek (Stud
+ io Director & Studio Art & Animation Director\, Guerrilla Games)\, Trent 
+ Claus (VFX Supervisor\, Lola Visual Effects)\, Tara DeMarco (Visual Effec
+ ts Supervisor\, Paramount Studios)\, Noelle Triaureau (Production Designe
+ r\, SWAPPED & BLUSH\, Skydance Animation)\, Bruno Velazquez (Game Directo
+ r\, God of War Ragnarök\, Sony Santa Monica Studio). Moderator: Wieke Sc
+ hrakamp (Researcher\, Valsplat)
+END:VEVENT
+END:VCALENDAR

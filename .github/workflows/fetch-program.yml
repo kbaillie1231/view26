@@ -1,0 +1,81 @@
+name: Update program
+
+# Fetches the official VIEW Conference program page, parses it into
+# site/data/program.json and commits the result when it changed. Netlify
+# redeploys on every push, so the app stays in sync with the official program.
+# The parser exits non-zero on anything that doesn't look like a complete
+# program, in which case nothing is committed and the live data is untouched.
+on:
+  schedule:
+    # Every 20 minutes, 07:07-22:47 Turin time (05-20 UTC), Oct 12-16. Off the
+    # top of the hour, when GitHub most often delays scheduled runs.
+    - cron: "7-59/20 5-20 12-16 10 *"
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/fetch-program.yml
+      - scripts/parse-program.mjs
+      - scripts/fetch-articles.mjs
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-program
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      - name: Download official program page
+        run: |
+          set -euo pipefail
+          curl -sSL --fail --retry 3 --retry-delay 5 \
+            -A "Mozilla/5.0 (compatible; view26-program-sync)" \
+            "https://www.viewconference.it/assets/html/view_CET.html?nocache=${GITHUB_RUN_ID}" \
+            -o data/source/view_CET.html
+          ls -la data/source/view_CET.html
+
+      - name: Fetch session descriptions
+        # New articles only, plus a full refresh once a day (and on manual
+        # runs). Descriptions are optional: if this fails or hangs, the program
+        # itself is still parsed and committed.
+        continue-on-error: true
+        timeout-minutes: 6
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            node scripts/fetch-articles.mjs --all
+          else
+            node scripts/fetch-articles.mjs --daily
+          fi
+
+      - name: Parse into site/data/program.json
+        # A manual run may accept a much smaller program (e.g. after a real
+        # cancellation of many sessions); scheduled runs refuse it.
+        env:
+          ALLOW_SHRINK: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
+        run: node scripts/parse-program.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data/source/view_CET.html data/articles.json data/articles-refreshed.txt site/data/program.json site/ics
+          if git diff --cached --quiet; then
+            echo "Program unchanged"
+          else
+            git commit -m "Update program from viewconference.it"
+            git pull --rebase
+            git push
+          fi

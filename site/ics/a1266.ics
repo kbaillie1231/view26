@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1266@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261015T120000Z
+DTEND:20261015T130000Z
+SUMMARY:'Ford v Ferrari' to ‘Logan:' A Conversation with Oscar-Winning F
+ ilm Editor Michael McCusker\, ACE
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk. With Michael McCusker ACE (Award-winning Editor)\nhttps:
+ //www.viewconference.it/article/1266
+URL:https://www.viewconference.it/article/1266
+END:VEVENT
+END:VCALENDAR

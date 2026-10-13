@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1236@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T120000Z
+DTEND:20261014T130000Z
+SUMMARY:Crafting the World of SWAPPED
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk. With Noelle Triaureau (Production Designer\, SWAPPED & B
+ LUSH\, Skydance Animation)\, Juan-Luis Sanchez (VFX Supervisor\, SWAPPED 
+ & BLUSH\, Skydance Animation)\nhttps://www.viewconference.it/article/1236
+URL:https://www.viewconference.it/article/1236
+END:VEVENT
+END:VCALENDAR

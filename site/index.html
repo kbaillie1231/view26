@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>VIEW 2026 Program</title>
+  <meta name="description" content="Browse the VIEW Conference 2026 program (Turin, 12-16 October) by day, subject, speaker and room. Works offline.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VIEW 2026 Program">
+  <meta property="og:title" content="VIEW Conference 2026 Program">
+  <meta property="og:description" content="Browse the VIEW Conference 2026 program (Turin, 12–16 October) by day, subject, speaker and room. Works offline.">
+  <meta property="og:url" content="https://viewprogram.app/">
+  <meta property="og:image" content="https://viewprogram.app/icons/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VIEW Conference 2026 Program, Turin, 12–16 October">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f6f6f4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="VIEW 2026">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preload" href="data/program.json" as="fetch" crossorigin>
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-text">
+      <h1>VIEW Conference 2026</h1>
+      <p id="masthead-sub">Program · Turin, 12–16 Oct · Turin local time</p>
+    </div>
+    <button class="icon-btn" id="info-btn" type="button" aria-label="Venues, notes and about">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.25"/><path d="M12 11v6M12 7.5v.01"/></svg>
+    </button>
+  </header>
+
+  <div class="bar" id="bar">
+    <div class="search-row">
+      <label class="search" for="q">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+        <input id="q" type="search" placeholder="Search talks, speakers, studios" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-label="Search the program">
+        <button type="button" class="clear-q" id="clear-q" aria-label="Clear search" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg>
+        </button>
+      </label>
+      <button class="filter-btn" id="filter-btn" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+        <span>Filters</span><span class="badge" id="filter-count" hidden></span>
+      </button>
+    </div>
+    <nav class="days" id="days" aria-label="Conference days"></nav>
+  </div>
+
+  <div class="chips-row" id="chips-row" role="group" aria-label="Subjects and active filters"></div>
+
+  <main id="main" tabindex="-1">
+    <p class="status" id="status" aria-live="polite"></p>
+    <div id="list"></div>
+  </main>
+
+  <footer class="footer" id="footer"></footer>
+
+  <button class="now-btn" id="now-btn" type="button" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.25"/><path d="M12 7v5l3 2"/></svg>
+    <span>Now</span>
+  </button>
+
+  <dialog class="sheet" id="session-sheet" aria-labelledby="session-title"></dialog>
+  <dialog class="sheet" id="filter-sheet" aria-labelledby="filter-title"></dialog>
+  <dialog class="sheet" id="info-sheet" aria-labelledby="info-title"></dialog>
+
+  <noscript><p class="status">This program browser needs JavaScript. The official program is at <a href="https://www.viewconference.it/assets/html/view_CET.html">viewconference.it</a>.</p></noscript>
+  <script src="app.js?v=2" defer></script>
+</body>
+</html>

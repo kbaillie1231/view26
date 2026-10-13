@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:concept-art-portfolio-reviews-12@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T130000Z
+DTEND:20261012T140000Z
+SUMMARY:Concept Art Portfolio Reviews
+LOCATION:ITS 3\, ITS ICT - Piazza dei Mestieri - Via Jacopo Durandi\, 13 -
+  Torino
+DESCRIPTION:Portfolio Reviews. With Isobel Hine (Mid Concept Artist\, INT/
+ Night\, Founder/Director of WCAA)\, Jessica Taylor (Senior Freelance Conc
+ ept Artist and Illustrator\, Community Manager of WCAA)\, Phil Moss (Conc
+ ept Artist & Illustrator)
+END:VEVENT
+END:VCALENDAR

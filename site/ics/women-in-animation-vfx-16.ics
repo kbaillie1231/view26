@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:women-in-animation-vfx-16@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261016T104500Z
+DTEND:20261016T114500Z
+SUMMARY:Women in Animation & VFX
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Panel. With Delphine Coudray (Head of Operations\, Animation I
+ reland)\, Janet Lewin (Senior Vice President\, General Manager\, and Head
+ \, ILM)\, Tara DeMarco (Visual Effects Supervisor\, Paramount Studios)\, 
+ Nicole Paradis Grindle (Producer\, HOPPERS\, Pixar Animation Studios)\, H
+ olly Edwards (President\, Skydance Animation)\, Standish Millennas (Execu
+ tive Producer\, Episodic\, Framestore). Moderator: Carolyn Giardina (Ente
+ rtainment and Technology Freelance Journalist)
+END:VEVENT
+END:VCALENDAR

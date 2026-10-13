@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1272@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T081500Z
+DTEND:20261014T091500Z
+SUMMARY:Forgotten Island
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Panel. With Joel Crawford (Writer/Director\, Forgotten Island\
+ , Dreamworks Animation)\, Januel P. Mercado (Writer/Director\, Forgotten 
+ Island\, DreamWorks Animation)\, Sean Sexton (Head of Character Animation
+ \, Forgotten Island\, DreamWorks Animation)\, Ryan Carlson (Production De
+ signer\, Forgotten Island\, DreamWorks Animation)\nhttps://www.viewconfer
+ ence.it/article/1272
+URL:https://www.viewconference.it/article/1272
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1336@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261013T131500Z
+DTEND:20261013T141500Z
+SUMMARY:Accelerating VFX Workloads: AI\, Cloud\, and Hardware in Productio
+ n Today
+LOCATION:BINARIO3\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Panel. With John Canning (Director Developer Relations - M&E\,
+  AEC\, D&M\, AMD)\, Rob Konuch (Digital Supervisor)\, Darren Frankel (Hea
+ d of Film & Television\, Adobe)\, Sean Wallitsch (Sr. Specialist Solution
+ s Architect\, Visual Compute\, Amazon Web Services)\nhttps://www.viewconf
+ erence.it/article/1336
+URL:https://www.viewconference.it/article/1336
+END:VEVENT
+END:VCALENDAR

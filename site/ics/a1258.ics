@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1258@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T120000Z
+DTEND:20261012T130000Z
+SUMMARY:Women in Concept Art: Next Generation Growing Careers\, Building C
+ ommunity & Shaping What's Next
+LOCATION:POLIFUNZIONALE\, ITS ICT - Piazza dei Mestieri - Via Jacopo Duran
+ di\, 13 - Torino
+DESCRIPTION:Talk. With Valeriia Konstantinova (Junior Concept Artist\, Ato
+ mhawk Design Ltd\, Co-Director & Team Lead\, Women in Concept Art)\, Emil
+ y Bland (Junior Concept Artist\, Industrial Light & Magic\, Founder & Co-
+ Director\, Women in Concept Art)\, Priya Singh (Project Manager and Co-Di
+ rector\, Women in Concept Art)\nhttps://www.viewconference.it/article/125
+ 8
+URL:https://www.viewconference.it/article/1258
+END:VEVENT
+END:VCALENDAR

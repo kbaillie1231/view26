@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:hybrid-tracking-workflows-for-virtual-production-15@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261015T070000Z
+DTEND:20261015T080000Z
+SUMMARY:Hybrid Tracking Workflows for Virtual Production
+LOCATION:BINARIO3\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk. With Carlos Vilchis Ph.D. (Faculty\, Johnny Carson Cente
+ r for Emerging Media Arts\, University of Nebraska-Lincoln)
+END:VEVENT
+END:VCALENDAR

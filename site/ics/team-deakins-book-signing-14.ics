@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:team-deakins-book-signing-14@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T164500Z
+DTEND:20261014T173000Z
+SUMMARY:Team Deakins Book Signing
+LOCATION:BOOKSTORE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Signing. With Sir Roger Deakins (Academy Award Winning Cinemat
+ ographer)\, James Ellis Deakins (Creative Work Partner of Roger Deakins)
+END:VEVENT
+END:VCALENDAR

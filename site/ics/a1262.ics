@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1262@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261015T143000Z
+DTEND:20261015T153000Z
+SUMMARY:The Hybrid Trap: Why AI-Native Production Matters
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Panel. With Gary Mundell (CEO & Co-Founder\, LOFTAPPS)\, Remko
+  Noteboom (Co-Founder and CTO\, LOFTAPPS)\nhttps://www.viewconference.it/
+ article/1262
+URL:https://www.viewconference.it/article/1262
+END:VEVENT
+END:VCALENDAR

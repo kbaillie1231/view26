@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1293@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261013T093000Z
+DTEND:20261013T103000Z
+SUMMARY:Artists in the Loop: Generative AI in Production at Eyeline
+LOCATION:BINARIO3\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk. With Mohsen Mousavi (VP\, Virtual Pioneering\, Eyeline S
+ tudios)\nhttps://www.viewconference.it/article/1293
+URL:https://www.viewconference.it/article/1293
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,13 @@
+{
+  "name": "view26",
+  "private": true,
+  "description": "Mobile program browser for VIEW Conference 2026",
+  "type": "module",
+  "scripts": {
+    "parse": "node scripts/parse-program.mjs",
+    "serve": "npx --yes http-server site -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "cheerio": "1.2.0"
+  }
+}
