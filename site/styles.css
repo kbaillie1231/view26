@@ -4,12 +4,13 @@
   --surface-2: #efefec;
   --text: #16171a;
   --muted: #5d6068;
-  --faint: #8a8d94;
+  --faint: #6e717a;
   --border: #e0e0dc;
   --accent: #c8102e;
   --accent-ink: #ffffff;
   --accent-soft: #fbe7ea;
   --live: #d92d20;
+  --live-bg: #d92d20;
   --mark: #ffe08a;
   --warn-bg: #fff4e5;
   --warn-ink: #8a4b00;
@@ -43,12 +44,13 @@
     --surface-2: #26272b;
     --text: #f1f1f2;
     --muted: #a9acb3;
-    --faint: #7d8088;
+    --faint: #8d9098;
     --border: #2e3035;
     --accent: #ff5468;
     --accent-ink: #1a0a0d;
     --accent-soft: #3a1a20;
     --live: #ff6b5e;
+    --live-bg: #c4281c;
     --mark: #6b5310;
     --warn-bg: #3a2a12;
     --warn-ink: #ffcf8a;
@@ -69,7 +71,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { background: var(--bg); }
+html { background: var(--bg); scroll-padding-top: calc(var(--bar-h) + 44px); }
 
 body {
   margin: 0;
@@ -155,8 +157,8 @@ svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width:
 .clear-q {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border: 0;
   border-radius: 50%;
   background: transparent;
@@ -271,9 +273,9 @@ svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width:
   position: relative;
 }
 /* Enlarge the hit area to 44px without growing the chip. */
-.chip::after { content: ""; position: absolute; inset: -4px 0; }
+.chip::after { content: ""; position: absolute; inset: -5px 0; }
 .chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c, var(--faint)); flex: none; }
-.chip .n { color: var(--faint); font-size: 12px; font-variant-numeric: tabular-nums; }
+.chip .n { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 .chip[aria-pressed="true"] { background: var(--text); border-color: var(--text); color: var(--bg); }
 .chip[aria-pressed="true"] .n { color: inherit; opacity: 0.7; }
 .chip[aria-pressed="true"] .dot { box-shadow: 0 0 0 2px var(--bg); }
@@ -304,7 +306,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter) 96px; ou
 }
 .group-head .sub { font-size: 13px; font-weight: 500; color: var(--muted); }
 .group-head.day-head { font-size: 17px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
-.group.past .group-head { color: var(--faint); }
+.group.past .group-head { color: var(--muted); }
 
 .card {
   position: relative;
@@ -320,7 +322,9 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter) 96px; ou
 .card.live { border-color: var(--live); box-shadow: 0 0 0 1px var(--live); }
 .card-link { color: inherit; text-decoration: none; }
 .card-link:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
-.card.past { opacity: 0.6; }
+/* Finished sessions: flatter and quieter, but still readable. */
+.card.past { background: transparent; box-shadow: none; }
+.card.past h3, .card.past .meta .time { color: var(--muted); }
 .card-open {
   flex: 1;
   min-width: 0;
@@ -351,10 +355,12 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter) 96px; ou
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-.pill.live { background: var(--live); color: #fff; }
+.pill.live { background: var(--live-bg); color: #fff; }
 .pill.live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: pulse 1.6s ease-in-out infinite; }
 .pill.next { background: var(--surface-2); color: var(--text); }
 .pill.ticket { background: var(--warn-bg); color: var(--warn-ink); }
+.pill.remote { background: var(--surface-2); color: var(--muted); }
+.who .remote { color: var(--muted); font-weight: 400; }
 @keyframes pulse { 50% { opacity: 0.3; } }
 
 .card h3 { margin: 4px 0 2px; font-size: 17px; line-height: 1.3; font-weight: 650; letter-spacing: -0.005em; }
@@ -366,7 +372,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter) 96px; ou
 .linkish { border: 0; background: none; padding: 0; color: inherit; font: inherit; text-decoration: underline; text-align: left; }
 .conflict { margin-top: 8px; padding: 6px 8px; border-radius: 8px; background: var(--warn-bg); color: var(--warn-ink); font-size: 13px; }
 .snippet { margin: 6px 0 0; font-size: 13px; color: var(--muted); }
-mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1px; }
+mark { background: var(--mark); color: var(--text); border-radius: 2px; padding: 0 1px; }
 
 .star-btn {
   display: grid;
@@ -564,7 +570,7 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
 .speaker-list .s-text { flex: 1; min-width: 0; }
 .speaker-list .s-name { font-weight: 600; }
 .speaker-list .s-role { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.speaker-list .n { color: var(--faint); font-size: 13px; }
+.speaker-list .n { color: var(--muted); font-size: 13px; }
 .more-btn { margin-top: 8px; }
 
 /* Info sheet */
@@ -602,4 +608,14 @@ mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1
 
 @media (min-width: 600px) {
   .card h3 { font-size: 18px; }
+}
+
+/* Bigger hit areas for inline links in sheets, without changing the layout. */
+.venue a, .small-links a, .detail-facts a, .status a { display: inline-block; padding: 12px 0; margin: -12px 0; }
+
+/* Landscape phones and big zoom: don't let the sticky bar eat half the screen. */
+@media (max-height: 450px) {
+  .bar { position: static; }
+  .group-head { top: 0; }
+  html { scroll-padding-top: 44px; }
 }

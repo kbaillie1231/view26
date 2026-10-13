@@ -737,7 +737,7 @@
    "sessions": [
     "a1306"
    ],
-   "photo": null
+   "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/09/22/olivermaggingrich_512x512.jpg"
   },
   {
    "id": "rochelegloor",
@@ -1137,7 +1137,7 @@
    "sessions": [
     "a1266"
    ],
-   "photo": null
+   "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/06/30/michaelmccusker_512x512.jpeg"
   },
   {
    "id": "chrismclaughlin",
@@ -1356,7 +1356,7 @@
    "sessions": [
     "a1289"
    ],
-   "photo": null
+   "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/08/30/jamieraffone_512x512.jpg"
   },
   {
    "id": "christineresch",
@@ -1545,7 +1545,7 @@
     "behind-the-pixels-what-does-production-actually-do-12",
     "a1343"
    ],
-   "photo": null
+   "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/09/25/agatasoccini_512x512.jpg"
   },
   {
    "id": "alessandrasorrentino",
@@ -1626,7 +1626,7 @@
    "sessions": [
     "a1346"
    ],
-   "photo": null
+   "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/09/20/franciscodelarochatorre_512x512.jpg"
   },
   {
    "id": "noelletriaureau",
@@ -1692,7 +1692,7 @@
     "building-the-right-virtual-production-ecosystem-facing-ai-trends-14",
     "hybrid-tracking-workflows-for-virtual-production-15"
    ],
-   "photo": null
+   "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/09/09/carlosvilchis_512x512.jpg"
   },
   {
    "id": "nikolavucenovic",
@@ -1826,10 +1826,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "saintjohnwalker"
+   "people": [
+    {
+     "id": "saintjohnwalker",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -1865,10 +1868,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "hayleymiller"
+   "people": [
+    {
+     "id": "hayleymiller",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -1898,10 +1904,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "simonefavarin"
+   "people": [
+    {
+     "id": "simonefavarin",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "ai"
    ],
@@ -1924,10 +1933,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "alessandrasorrentino"
+   "people": [
+    {
+     "id": "alessandrasorrentino",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -1966,11 +1978,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "boyangeorgiev",
-    "jonaskluger"
+   "people": [
+    {
+     "id": "boyangeorgiev",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "jonaskluger",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "latest-techniques"
    ],
@@ -1993,10 +2012,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "trentclaus"
+   "people": [
+    {
+     "id": "trentclaus",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -2021,11 +2043,18 @@
     "Hands-on 15 people"
    ],
    "separateTicket": false,
-   "speakers": [
-    "roberthranitzky",
-    "christineresch"
+   "people": [
+    {
+     "id": "roberthranitzky",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "christineresch",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "vfx"
@@ -2062,10 +2091,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "eloichampagne"
+   "people": [
+    {
+     "id": "eloichampagne",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "latest-techniques"
@@ -2099,11 +2131,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "isobelhine",
-    "jessicataylor"
+   "people": [
+    {
+     "id": "isobelhine",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "jessicataylor",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "games"
    ],
@@ -2126,10 +2165,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "ernstjanssengroesbeek"
+   "people": [
+    {
+     "id": "ernstjanssengroesbeek",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling"
    ],
@@ -2162,10 +2204,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "christiantagliapietra"
+   "people": [
+    {
+     "id": "christiantagliapietra",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "latest-techniques"
    ],
@@ -2201,11 +2246,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "carlosvilchisphd",
-    "gastonalvarez"
+   "people": [
+    {
+     "id": "carlosvilchisphd",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "gastonalvarez",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "virtual-production"
    ],
@@ -2238,10 +2290,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "saintjohnwalker"
+   "people": [
+    {
+     "id": "saintjohnwalker",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys",
     "ai"
@@ -2272,11 +2327,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "hayleymiller",
-    "adelekhawli"
+   "people": [
+    {
+     "id": "hayleymiller",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "adelekhawli",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling"
    ],
@@ -2303,10 +2365,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "halhickel"
+   "people": [
+    {
+     "id": "halhickel",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -2329,11 +2394,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "valeriiakonstantinova",
-    "emilybland"
+   "people": [
+    {
+     "id": "valeriiakonstantinova",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "emilybland",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -2356,11 +2428,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "kategabriel",
-    "boyangeorgiev"
+   "people": [
+    {
+     "id": "kategabriel",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "boyangeorgiev",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "ai"
    ],
@@ -2383,10 +2462,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "delphinecoudray"
+   "people": [
+    {
+     "id": "delphinecoudray",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling"
    ],
@@ -2425,10 +2507,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "trentclaus"
+   "people": [
+    {
+     "id": "trentclaus",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -2451,10 +2536,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "kieranbelshaw"
+   "people": [
+    {
+     "id": "kieranbelshaw",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling"
    ],
@@ -2490,10 +2578,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "scotteaton"
+   "people": [
+    {
+     "id": "scotteaton",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -2520,14 +2611,33 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "apolloniahartmann",
-    "beataparczewska",
-    "agatamsoccini",
-    "evakrpanov",
-    "benjyriehl"
+   "people": [
+    {
+     "id": "apolloniahartmann",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "beataparczewska",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "agatamsoccini",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "evakrpanov",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "benjyriehl",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -2550,11 +2660,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "heikekluger",
-    "eddouglas"
+   "people": [
+    {
+     "id": "heikekluger",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "eddouglas",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -2577,10 +2694,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "noelletriaureau"
+   "people": [
+    {
+     "id": "noelletriaureau",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "storytelling"
@@ -2614,10 +2734,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "dylansisson"
+   "people": [
+    {
+     "id": "dylansisson",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "latest-techniques"
    ],
@@ -2647,10 +2770,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "ianfailes"
+   "people": [
+    {
+     "id": "ianfailes",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -2677,10 +2803,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "franciscopakkodelatorrerocha"
+   "people": [
+    {
+     "id": "franciscopakkodelatorrerocha",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling",
     "ai"
@@ -2711,12 +2840,23 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "valeriiakonstantinova",
-    "emilybland",
-    "priyasingh"
+   "people": [
+    {
+     "id": "valeriiakonstantinova",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "emilybland",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "priyasingh",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -2743,12 +2883,23 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "isobelhine",
-    "jessicataylor",
-    "philmoss"
+   "people": [
+    {
+     "id": "isobelhine",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "jessicataylor",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "philmoss",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -2771,16 +2922,42 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "timmclaughlin",
-    "simondavies",
-    "debracoleman",
-    "eugenieponcet",
-    "drolivermaggingrich",
-    "brookekeesling"
-   ],
-   "moderators": [
-    "saintjohnwalker"
+   "people": [
+    {
+     "id": "timmclaughlin",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "simondavies",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "debracoleman",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "eugenieponcet",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "drolivermaggingrich",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "brookekeesling",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "saintjohnwalker",
+     "role": "Moderator",
+     "remote": false
+    }
    ],
    "topics": [
     "storytelling",
@@ -2805,16 +2982,42 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "halhickel",
-    "janbartvanbeek",
-    "trentclaus",
-    "tarademarco",
-    "noelletriaureau",
-    "brunovelazquez"
-   ],
-   "moderators": [
-    "wiekeschrakamp"
+   "people": [
+    {
+     "id": "halhickel",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "janbartvanbeek",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "trentclaus",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "tarademarco",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "noelletriaureau",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "brunovelazquez",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "wiekeschrakamp",
+     "role": "Moderator",
+     "remote": false
+    }
    ],
    "topics": [
     "animation",
@@ -2840,12 +3043,23 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "kategabriel",
-    "beataparczewska",
-    "evakrpanov"
+   "people": [
+    {
+     "id": "kategabriel",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "beataparczewska",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "evakrpanov",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -2872,18 +3086,52 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "eloichampagne",
-    "janbartvanbeek",
-    "dylansisson",
-    "janetlewin",
-    "michellegrady",
-    "hollyedwards",
-    "emilybland",
-    "isobelhine"
-   ],
-   "moderators": [
-    "saintjohnwalker"
+   "people": [
+    {
+     "id": "eloichampagne",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "janbartvanbeek",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "dylansisson",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "janetlewin",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "michellegrady",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "hollyedwards",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "emilybland",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "isobelhine",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "saintjohnwalker",
+     "role": "Moderator",
+     "remote": false
+    }
    ],
    "topics": [
     "animation",
@@ -2912,10 +3160,13 @@
     "Italian Premiere Talk"
    ],
    "separateTicket": false,
-   "speakers": [
-    "steveemerson"
+   "people": [
+    {
+     "id": "steveemerson",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "vfx"
@@ -2939,10 +3190,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "simonesilvestri"
+   "people": [
+    {
+     "id": "simonesilvestri",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "games"
    ],
@@ -2969,10 +3223,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "bradbird"
+   "people": [
+    {
+     "id": "bradbird",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "career-journeys"
@@ -3000,10 +3257,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "mohsenmousavi"
+   "people": [
+    {
+     "id": "mohsenmousavi",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling",
     "ai"
@@ -3027,11 +3287,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "alexanderseaman",
-    "benanderson"
+   "people": [
+    {
+     "id": "alexanderseaman",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "benanderson",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "vfx"
@@ -3061,10 +3328,13 @@
     "in TECA-B"
    ],
    "separateTicket": false,
-   "speakers": [
-    "alexiswanneroy"
+   "people": [
+    {
+     "id": "alexiswanneroy",
+     "role": null,
+     "remote": true
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "storytelling"
@@ -3092,10 +3362,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "chrishurtt"
+   "people": [
+    {
+     "id": "chrishurtt",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "vfx"
@@ -3123,11 +3396,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "brianwyser",
-    "brianmullen"
+   "people": [
+    {
+     "id": "brianwyser",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "brianmullen",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling"
    ],
@@ -3156,14 +3436,32 @@
     "In Collaboration with VES"
    ],
    "separateTicket": false,
-   "speakers": [
-    "kevinbaillie",
-    "christineresch",
-    "johnnyhan",
-    "eddouglas"
-   ],
-   "moderators": [
-    "christinacaspersroemer"
+   "people": [
+    {
+     "id": "kevinbaillie",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "christineresch",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "johnnyhan",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "eddouglas",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "christinacaspersroemer",
+     "role": "Moderator",
+     "remote": false
+    }
    ],
    "topics": [
     "storytelling"
@@ -3189,10 +3487,13 @@
     "Separate Ticket in AREA SOPPALCO"
    ],
    "separateTicket": true,
-   "speakers": [
-    "chrislavis"
+   "people": [
+    {
+     "id": "chrislavis",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -3312,10 +3613,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "marcstpierre"
+   "people": [
+    {
+     "id": "marcstpierre",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "career-journeys"
@@ -3343,14 +3647,33 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "timmclaughlin",
-    "junyamochizuki",
-    "mayetandreassen",
-    "waynemiller",
-    "jamieraffone"
+   "people": [
+    {
+     "id": "timmclaughlin",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "junyamochizuki",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "mayetandreassen",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "waynemiller",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "jamieraffone",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling",
     "virtual-production"
@@ -3384,11 +3707,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "markulano",
-    "patrushkamierzwa"
+   "people": [
+    {
+     "id": "markulano",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "patrushkamierzwa",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling"
    ],
@@ -3427,13 +3757,28 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "johncanning",
-    "robkonuch",
-    "darrenfrankel",
-    "seanwallitsch"
+   "people": [
+    {
+     "id": "johncanning",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "robkonuch",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "darrenfrankel",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "seanwallitsch",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx",
     "latest-techniques",
@@ -3480,11 +3825,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "alexboya",
-    "jelenapopovic"
+   "people": [
+    {
+     "id": "alexboya",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "jelenapopovic",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -3517,10 +3869,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "jochenwillemsen"
+   "people": [
+    {
+     "id": "jochenwillemsen",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "games"
    ],
@@ -3549,10 +3904,13 @@
     "Italian Premiere Talk"
    ],
    "separateTicket": false,
-   "speakers": [
-    "chrisbrowne"
+   "people": [
+    {
+     "id": "chrisbrowne",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "virtual-production"
    ],
@@ -3579,10 +3937,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "dylansisson"
+   "people": [
+    {
+     "id": "dylansisson",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "latest-techniques"
@@ -3613,11 +3974,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "juristanossek",
-    "alexandrastautmeister"
+   "people": [
+    {
+     "id": "juristanossek",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "alexandrastautmeister",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -3644,10 +4012,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "eloichampagne"
+   "people": [
+    {
+     "id": "eloichampagne",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "latest-techniques"
    ],
@@ -3680,10 +4051,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "petertimberlake"
+   "people": [
+    {
+     "id": "petertimberlake",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -3708,11 +4082,18 @@
     "Pre-Recorded Session Streamed on Site"
    ],
    "separateTicket": false,
-   "speakers": [
-    "andrewjackson",
-    "ianfailes"
+   "people": [
+    {
+     "id": "andrewjackson",
+     "role": null,
+     "remote": true
+    },
+    {
+     "id": "ianfailes",
+     "role": "In conversation with",
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -3739,11 +4120,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "ameliedillig",
-    "emanuelfuchs"
+   "people": [
+    {
+     "id": "ameliedillig",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "emanuelfuchs",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -3776,10 +4164,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "jeromechen"
+   "people": [
+    {
+     "id": "jeromechen",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -3806,10 +4197,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "carlosvilchisphd"
+   "people": [
+    {
+     "id": "carlosvilchisphd",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "virtual-production"
    ],
@@ -3832,10 +4226,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "brunovelazquez"
+   "people": [
+    {
+     "id": "brunovelazquez",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "games"
    ],
@@ -3862,13 +4259,28 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "joelcrawford",
-    "januelpmercado",
-    "seansexton",
-    "ryancarlson"
+   "people": [
+    {
+     "id": "joelcrawford",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "januelpmercado",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "seansexton",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "ryancarlson",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -3891,10 +4303,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "tarademarco"
+   "people": [
+    {
+     "id": "tarademarco",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -3917,10 +4332,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "tyreedillihay"
+   "people": [
+    {
+     "id": "tyreedillihay",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -3947,10 +4365,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "scotteaton"
+   "people": [
+    {
+     "id": "scotteaton",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "ai"
    ],
@@ -3977,10 +4398,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "dadieinarsson"
+   "people": [
+    {
+     "id": "dadieinarsson",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -4003,10 +4427,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "eddouglas"
+   "people": [
+    {
+     "id": "eddouglas",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -4033,15 +4460,37 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "jeffdillinger",
-    "jonathanharris",
-    "garymundell",
-    "hiteshshah",
-    "thierrylevy"
-   ],
-   "moderators": [
-    "heikoburkardsmaier"
+   "people": [
+    {
+     "id": "jeffdillinger",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "jonathanharris",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "garymundell",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "hiteshshah",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "thierrylevy",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "heikoburkardsmaier",
+     "role": "Moderator",
+     "remote": false
+    }
    ],
    "topics": [
     "vfx"
@@ -4077,10 +4526,13 @@
     "In AREA SOPPALCO"
    ],
    "separateTicket": true,
-   "speakers": [
-    "chrislavis"
+   "people": [
+    {
+     "id": "chrislavis",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -4200,10 +4652,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "chrismclaughlin"
+   "people": [
+    {
+     "id": "chrismclaughlin",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -4230,11 +4685,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "noelletriaureau",
-    "juanluissanchez"
+   "people": [
+    {
+     "id": "noelletriaureau",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "juanluissanchez",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "vfx"
@@ -4265,11 +4727,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "bogdanamidzic",
-    "nikolavucenovic"
+   "people": [
+    {
+     "id": "bogdanamidzic",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "nikolavucenovic",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -4296,11 +4765,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "alessandrosalis",
-    "larrydetwiler"
+   "people": [
+    {
+     "id": "alessandrosalis",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "larrydetwiler",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling",
     "ai"
@@ -4328,10 +4804,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "alessandroongaro"
+   "people": [
+    {
+     "id": "alessandroongaro",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -4358,10 +4837,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "kevinbaillie"
+   "people": [
+    {
+     "id": "kevinbaillie",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "latest-techniques",
     "ai"
@@ -4398,10 +4880,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "sylvainsalame"
+   "people": [
+    {
+     "id": "sylvainsalame",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -4440,17 +4925,47 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "janetlewin",
-    "laurensehrmann",
-    "michellegrady",
-    "hollyedwards",
-    "shawnwalsh",
-    "ronfrankel",
-    "henrikfett"
-   ],
-   "moderators": [
-    "ianfailes"
+   "people": [
+    {
+     "id": "janetlewin",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "laurensehrmann",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "michellegrady",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "hollyedwards",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "shawnwalsh",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "ronfrankel",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "henrikfett",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "ianfailes",
+     "role": "Moderator",
+     "remote": false
+    }
    ],
    "topics": [
     "storytelling",
@@ -4475,13 +4990,28 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "joelcrawford",
-    "kennaharris",
-    "januelpmercado",
-    "tyreedillihay"
+   "people": [
+    {
+     "id": "joelcrawford",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "kennaharris",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "januelpmercado",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "tyreedillihay",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling"
    ],
@@ -4504,11 +5034,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "setarehsamandari",
-    "habibzargarpour"
+   "people": [
+    {
+     "id": "setarehsamandari",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "habibzargarpour",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling",
     "ai"
@@ -4551,11 +5088,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "markulano",
-    "patrushkamierzwa"
+   "people": [
+    {
+     "id": "markulano",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "patrushkamierzwa",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling"
    ],
@@ -4584,11 +5128,18 @@
     "Breakpoint Bookstore Near Reception"
    ],
    "separateTicket": false,
-   "speakers": [
-    "sirrogerdeakins",
-    "jamesellisdeakins"
+   "people": [
+    {
+     "id": "sirrogerdeakins",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "jamesellisdeakins",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [],
    "venue": "OGR",
    "lede": "",
@@ -4609,12 +5160,23 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "matthewebutler",
-    "joelbehrens",
-    "lizbernard"
+   "people": [
+    {
+     "id": "matthewebutler",
+     "role": "Introduced by",
+     "remote": false
+    },
+    {
+     "id": "joelbehrens",
+     "role": "Introduced by",
+     "remote": false
+    },
+    {
+     "id": "lizbernard",
+     "role": "Introduced by",
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [],
    "venue": "Cinema Massimo",
    "lede": "",
@@ -4635,10 +5197,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "carlosvilchisphd"
+   "people": [
+    {
+     "id": "carlosvilchisphd",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "virtual-production"
    ],
@@ -4663,10 +5228,13 @@
     "Italian Premiere Talk"
    ],
    "separateTicket": false,
-   "speakers": [
-    "yvettmerino"
+   "people": [
+    {
+     "id": "yvettmerino",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -4693,11 +5261,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "setarehsamandari",
-    "habibzargarpour"
+   "people": [
+    {
+     "id": "setarehsamandari",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "habibzargarpour",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "vfx",
@@ -4729,11 +5304,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "eloichampagne",
-    "mashashugrina"
+   "people": [
+    {
+     "id": "eloichampagne",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "mashashugrina",
+     "role": null,
+     "remote": true
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling",
     "ai"
@@ -4782,12 +5364,23 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "matthewebutler",
-    "joelbehrens",
-    "lizbernard"
+   "people": [
+    {
+     "id": "matthewebutler",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "joelbehrens",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "lizbernard",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -4810,10 +5403,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "josephkasparian"
+   "people": [
+    {
+     "id": "josephkasparian",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -4840,11 +5436,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "danielchong",
-    "nicoleparadisgrindle"
+   "people": [
+    {
+     "id": "danielchong",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "nicoleparadisgrindle",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -4871,12 +5474,23 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "garymundell",
-    "davidli",
-    "chrisspry"
+   "people": [
+    {
+     "id": "garymundell",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "davidli",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "chrisspry",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -4908,11 +5522,18 @@
     "in TECA-B"
    ],
    "separateTicket": false,
-   "speakers": [
-    "anthonygiacchino",
-    "rochelegloor"
+   "people": [
+    {
+     "id": "anthonygiacchino",
+     "role": null,
+     "remote": true
+    },
+    {
+     "id": "rochelegloor",
+     "role": null,
+     "remote": true
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -4942,11 +5563,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "hiteshshah",
-    "scottmann"
+   "people": [
+    {
+     "id": "hiteshshah",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "scottmann",
+     "role": null,
+     "remote": true
+    }
    ],
-   "moderators": [],
    "topics": [
     "ai"
    ],
@@ -4973,15 +5601,38 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "halhickel",
-    "eloichampagne",
-    "alexandreponcet",
-    "delphinecoudray",
-    "tomgibbons",
-    "eugenieponcet"
+   "people": [
+    {
+     "id": "halhickel",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "eloichampagne",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "alexandreponcet",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "delphinecoudray",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "tomgibbons",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "eugenieponcet",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "career-journeys"
@@ -5007,13 +5658,27 @@
     "In Collaboration with VES"
    ],
    "separateTicket": false,
-   "speakers": [
-    "janetlewin",
-    "magsarnowska",
-    "michellegrady"
-   ],
-   "moderators": [
-    "christinacaspersroemer"
+   "people": [
+    {
+     "id": "janetlewin",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "magsarnowska",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "michellegrady",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "christinacaspersroemer",
+     "role": "Moderator",
+     "remote": false
+    }
    ],
    "topics": [
     "vfx"
@@ -5039,10 +5704,13 @@
     "Separate Ticket in AREA SOPPALCO"
    ],
    "separateTicket": true,
-   "speakers": [
-    "chrislavis"
+   "people": [
+    {
+     "id": "chrislavis",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -5162,10 +5830,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "jeffkember"
+   "people": [
+    {
+     "id": "jeffkember",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "ai"
    ],
@@ -5192,10 +5863,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "michaelmccuskerace"
+   "people": [
+    {
+     "id": "michaelmccuskerace",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling"
    ],
@@ -5222,10 +5896,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "benjyriehl"
+   "people": [
+    {
+     "id": "benjyriehl",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -5252,10 +5929,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "julienhery"
+   "people": [
+    {
+     "id": "julienhery",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -5284,10 +5964,13 @@
     "Italian premiere screening of \"The Trouble with Peter\""
    ],
    "separateTicket": false,
-   "speakers": [
-    "robertvalley"
+   "people": [
+    {
+     "id": "robertvalley",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "career-journeys"
@@ -5315,10 +5998,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "jeffdillinger"
+   "people": [
+    {
+     "id": "jeffdillinger",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx",
     "storytelling"
@@ -5346,10 +6032,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "thomasschelesny"
+   "people": [
+    {
+     "id": "thomasschelesny",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -5400,11 +6089,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "garymundell",
-    "remkonoteboom"
+   "people": [
+    {
+     "id": "garymundell",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "remkonoteboom",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "ai"
    ],
@@ -5455,10 +6151,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "danielburch"
+   "people": [
+    {
+     "id": "danielburch",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys",
     "ai"
@@ -5486,10 +6185,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "waynemiller"
+   "people": [
+    {
+     "id": "waynemiller",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [],
    "venue": "OGR",
    "lede": "",
@@ -5514,10 +6216,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "halhickel"
+   "people": [
+    {
+     "id": "halhickel",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -5544,12 +6249,23 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "halhickel",
-    "janetlewin",
-    "ianfailes"
+   "people": [
+    {
+     "id": "halhickel",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "janetlewin",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "ianfailes",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [],
    "venue": "OGR",
    "lede": "",
@@ -5570,10 +6286,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "sachithakalingamudali"
+   "people": [
+    {
+     "id": "sachithakalingamudali",
+     "role": "Introduced by",
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [],
    "venue": "Cinema Massimo",
    "lede": "",
@@ -5594,11 +6313,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "setarehsamandari",
-    "habibzargarpour"
+   "people": [
+    {
+     "id": "setarehsamandari",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "habibzargarpour",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "latest-techniques"
    ],
@@ -5625,10 +6351,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "kennaharris"
+   "people": [
+    {
+     "id": "kennaharris",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -5655,10 +6384,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "sivakumarkasetty"
+   "people": [
+    {
+     "id": "sivakumarkasetty",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys",
     "ai"
@@ -5682,10 +6414,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "sachithakalingamudali"
+   "people": [
+    {
+     "id": "sachithakalingamudali",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -5712,11 +6447,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "richardkerris",
-    "cristobalvalenzuela"
+   "people": [
+    {
+     "id": "richardkerris",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "cristobalvalenzuela",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling",
     "ai"
@@ -5753,11 +6495,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "simondavies",
-    "debracoleman"
+   "people": [
+    {
+     "id": "simondavies",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "debracoleman",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -5786,10 +6535,13 @@
     "Italian Premiere Talk"
    ],
    "separateTicket": false,
-   "speakers": [
-    "sarahrumbley"
+   "people": [
+    {
+     "id": "sarahrumbley",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "storytelling",
@@ -5818,11 +6570,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "simonweisse",
-    "lucyweisse"
+   "people": [
+    {
+     "id": "simonweisse",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "lucyweisse",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "storytelling",
     "career-journeys"
@@ -5850,10 +6609,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "nicholascabana"
+   "people": [
+    {
+     "id": "nicholascabana",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -5891,10 +6653,13 @@
     "in TECA-B"
    ],
    "separateTicket": false,
-   "speakers": [
-    "terrencemasson"
+   "people": [
+    {
+     "id": "terrencemasson",
+     "role": null,
+     "remote": true
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],
@@ -5924,10 +6689,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "tomgibbons"
+   "people": [
+    {
+     "id": "tomgibbons",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -5950,16 +6718,42 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "delphinecoudray",
-    "janetlewin",
-    "tarademarco",
-    "nicoleparadisgrindle",
-    "hollyedwards",
-    "standishmillennas"
-   ],
-   "moderators": [
-    "carolyngiardina"
+   "people": [
+    {
+     "id": "delphinecoudray",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "janetlewin",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "tarademarco",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "nicoleparadisgrindle",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "hollyedwards",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "standishmillennas",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "carolyngiardina",
+     "role": "Moderator",
+     "remote": false
+    }
    ],
    "topics": [
     "animation",
@@ -5985,10 +6779,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "chrisbremble"
+   "people": [
+    {
+     "id": "chrisbremble",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -6026,10 +6823,13 @@
     "Separate Ticket in AREA SOPPALCO"
    ],
    "separateTicket": true,
-   "speakers": [
-    "chrislavis"
+   "people": [
+    {
+     "id": "chrislavis",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -6149,10 +6949,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "gretchenlibby"
+   "people": [
+    {
+     "id": "gretchenlibby",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "ai"
    ],
@@ -6179,10 +6982,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "merlincrossingham"
+   "people": [
+    {
+     "id": "merlincrossingham",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation",
     "career-journeys"
@@ -6210,10 +7016,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "agatamsoccini"
+   "people": [
+    {
+     "id": "agatamsoccini",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vr-ar-xr",
     "latest-techniques"
@@ -6244,11 +7053,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "sanjayjajuias",
-    "mikeyatham"
+   "people": [
+    {
+     "id": "sanjayjajuias",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "mikeyatham",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [],
    "venue": "OGR",
    "lede": "",
@@ -6273,10 +7089,13 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "patrickharboun"
+   "people": [
+    {
+     "id": "patrickharboun",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "animation"
    ],
@@ -6303,11 +7122,18 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "paullambert",
-    "magsarnowska"
+   "people": [
+    {
+     "id": "paullambert",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "magsarnowska",
+     "role": null,
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "vfx"
    ],
@@ -6334,12 +7160,23 @@
    "attendance": "In Person",
    "notes": [],
    "separateTicket": false,
-   "speakers": [
-    "sirrogerdeakins",
-    "jamesellisdeakins",
-    "jamielang"
+   "people": [
+    {
+     "id": "sirrogerdeakins",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "jamesellisdeakins",
+     "role": null,
+     "remote": false
+    },
+    {
+     "id": "jamielang",
+     "role": "In conversation with",
+     "remote": false
+    }
    ],
-   "moderators": [],
    "topics": [
     "career-journeys"
    ],

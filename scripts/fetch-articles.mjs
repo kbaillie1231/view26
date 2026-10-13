@@ -2,11 +2,13 @@
 // and extracts its description and speaker photos into data/articles.json.
 //
 // By default only articles missing from data/articles.json are fetched, so the
-// frequent program sync makes at most a handful of requests. Pass --all to
-// refresh every article (the Action does this once a day).
+// frequent program sync makes at most a handful of requests. --all refreshes
+// every article; --daily does the same at most once per (UTC) day, tracked in
+// data/articles-refreshed.txt. If the site stops answering, the script gives
+// up early and keeps what it already has, so the program sync still runs.
 //
 // Usage:
-//   node scripts/fetch-articles.mjs [--all]
+//   node scripts/fetch-articles.mjs [--all | --daily]
 //   node scripts/fetch-articles.mjs --from-dir data/samples   (offline test: reads article_<id>.html)
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
@@ -15,12 +17,16 @@ import { load } from 'cheerio';
 
 const PROGRAM = 'data/source/view_CET.html';
 const OUTPUT = 'data/articles.json';
+const STAMP = 'data/articles-refreshed.txt';
+const TIMEOUT_MS = 15000;
+const MAX_CONSECUTIVE_FAILURES = 5;
 const BASE = 'https://www.viewconference.it';
 const UA = 'Mozilla/5.0 (compatible; view26-program-sync)';
 const DELAY_MS = 250;
 
 const args = process.argv.slice(2);
-const refreshAll = args.includes('--all');
+const today = new Date().toISOString().slice(0, 10);
+const refreshAll = args.includes('--all') || (args.includes('--daily') && (!existsSync(STAMP) || readFileSync(STAMP, 'utf8').trim() !== today));
 const fromDirIdx = args.indexOf('--from-dir');
 const fromDir = fromDirIdx >= 0 ? args[fromDirIdx + 1] : null;
 
@@ -75,7 +81,7 @@ async function fetchArticle(id) {
   }
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
-      const res = await fetch(`${BASE}/article/${id}`, { headers: { 'User-Agent': UA }, redirect: 'follow' });
+      const res = await fetch(`${BASE}/article/${id}`, { headers: { 'User-Agent': UA }, redirect: 'follow', signal: AbortSignal.timeout(TIMEOUT_MS) });
       if (res.ok) return await res.text();
       console.warn(`article ${id}: HTTP ${res.status}`);
       if (res.status === 404) return null;
@@ -94,9 +100,11 @@ async function main() {
   const out = {};
   let fetched = 0;
   let failed = 0;
+  let streak = 0;
   for (const id of ids) {
-    if (!refreshAll && !fromDir && existing[id]) {
-      out[id] = existing[id];
+    const giveUp = streak >= MAX_CONSECUTIVE_FAILURES;
+    if (giveUp || (!refreshAll && !fromDir && existing[id])) {
+      if (existing[id]) out[id] = existing[id];
       continue;
     }
     const html = await fetchArticle(id);
@@ -104,13 +112,19 @@ async function main() {
     if (article) {
       out[id] = article;
       fetched++;
+      streak = 0;
     } else {
       if (existing[id]) out[id] = existing[id];
-      if (!fromDir) failed++;
+      if (!fromDir) {
+        failed++;
+        streak++;
+      }
     }
     if (!fromDir) await sleep(DELAY_MS);
   }
   writeFileSync(OUTPUT, JSON.stringify(out, null, 1) + '\n');
+  if (refreshAll && !fromDir && streak < MAX_CONSECUTIVE_FAILURES) writeFileSync(STAMP, `${today}\n`);
+  if (streak >= MAX_CONSECUTIVE_FAILURES) console.warn(`Gave up after ${MAX_CONSECUTIVE_FAILURES} failures in a row; kept existing articles`);
   console.log(`Articles: ${ids.length} linked, ${fetched} fetched, ${failed} failed, ${Object.keys(out).length} stored in ${OUTPUT}`);
 }
 

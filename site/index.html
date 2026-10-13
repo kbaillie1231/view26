@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>VIEW 2026 Program</title>
   <meta name="description" content="Browse the VIEW Conference 2026 program (Turin, 12-16 October) by day, subject, speaker and room. Works offline.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VIEW 2026 Program">
+  <meta property="og:title" content="VIEW Conference 2026 Program">
+  <meta property="og:description" content="Browse the VIEW Conference 2026 program (Turin, 12–16 October) by day, subject, speaker and room. Works offline.">
+  <meta property="og:url" content="https://viewprogram.app/">
+  <meta property="og:image" content="https://viewprogram.app/icons/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VIEW Conference 2026 Program, Turin, 12–16 October">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f6f6f4" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
@@ -16,7 +26,7 @@
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="preload" href="data/program.json" as="fetch" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=1">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
   <header class="masthead">
@@ -43,10 +53,10 @@
         <span>Filters</span><span class="badge" id="filter-count" hidden></span>
       </button>
     </div>
-    <nav class="days" id="days" role="tablist" aria-label="Conference days"></nav>
+    <nav class="days" id="days" aria-label="Conference days"></nav>
   </div>
 
-  <div class="chips-row" id="chips-row" aria-label="Subjects and active filters"></div>
+  <div class="chips-row" id="chips-row" role="group" aria-label="Subjects and active filters"></div>
 
   <main id="main" tabindex="-1">
     <p class="status" id="status" aria-live="polite"></p>
@@ -65,6 +75,6 @@
   <dialog class="sheet" id="info-sheet" aria-labelledby="info-title"></dialog>
 
   <noscript><p class="status">This program browser needs JavaScript. The official program is at <a href="https://www.viewconference.it/assets/html/view_CET.html">viewconference.it</a>.</p></noscript>
-  <script src="app.js?v=1" defer></script>
+  <script src="app.js?v=2" defer></script>
 </body>
 </html>

@@ -124,17 +124,25 @@ $('div[class^="schedule"]').each((_, grid) => {
     // "CINEMA MASSIMO - Via Giuseppe Verdi, 18" -> room "CINEMA MASSIMO"
     const room = roomFull.split(' - ')[0];
 
-    const speakerIds = [];
-    const moderatorIds = [];
+    // Presenters in page order. A classless <span> between presenters is a role
+    // label ("Moderator", "in Conversation with", "introduced by") that applies
+    // to the presenters after it. "(Remote)" after a name marks a remote speaker.
+    const people = [];
     const sessionNotes = [];
-    let nextIsModerator = false;
+    let role = null;
     $s.children().each((___, child) => {
       const $c = $(child);
       if ($c.is('span.session-presenter')) {
         const $a = $c.children('a').first();
         const purl = $a.attr('href') || null;
-        const upperName = clean($a.text() || $c.clone().children('span').remove().end().text().replace(/,$/, ''));
-        const ptitle = clean($c.children('span.session-presenter-title').text());
+        // Unlinked presenters are "NAME, Title" (or "NAME,<span>Title</span>").
+        const upperName = clean($a.text() || $c.clone().children('span').remove().end().text().split(',')[0]);
+        const titleSpan = $c.children('span.session-presenter-title');
+        // Text outside the name link and title span: "(Remote)", and on some
+        // entries the job title itself (", VFX Supervisor, …") with no span.
+        const rest = clean($c.clone().children('a, span.session-presenter-title').remove().end().text());
+        const marker = $a.length ? rest : rest.slice(rest.indexOf(',') + 1 || rest.length);
+        const ptitle = titleSpan.length ? clean(titleSpan.text()) : clean(marker.replace(/\(\s*remote\s*\)/i, '').replace(/^[\s,]+/, ''));
         const key = purl ? speakerKey(purl) : norm(upperName);
         if (!key) {
           errors.push(`Session "${title}": presenter without name`);
@@ -143,10 +151,13 @@ $('div[class^="schedule"]').each((_, grid) => {
         if (!speakers.has(key)) {
           speakers.set(key, { id: key, name: titleCase(upperName), title: ptitle, url: purl, sessions: [] });
         }
-        (nextIsModerator ? moderatorIds : speakerIds).push(key);
-        nextIsModerator = false;
-      } else if ($c.is('span') && !$c.attr('class') && /^moderators?$/i.test(clean($c.text()))) {
-        nextIsModerator = true;
+        const remote = /\bremote\b/i.test(marker);
+        const leftover = titleSpan.length ? marker.replace(/\(\s*remote\s*\)/i, '').replace(/[\s,]/g, '') : '';
+        if (leftover) warnings.push(`Session "${title}": unrecognised presenter marker "${marker}"`);
+        people.push({ id: key, role, remote });
+      } else if ($c.is('span') && !$c.attr('class')) {
+        const label = clean($c.text());
+        if (label) role = /^moderators?$/i.test(label) ? 'Moderator' : label[0].toUpperCase() + label.slice(1).toLowerCase();
       } else if ($c.is('div')) {
         const t = clean($c.text()).replace(/^\((.*)\)$/, '$1');
         if (t) sessionNotes.push(t);
@@ -154,8 +165,9 @@ $('div[class^="schedule"]').each((_, grid) => {
     });
 
     if (!title) errors.push(`Session ${srcId} on ${date}: missing title`);
-    if (!speakerIds.length && !moderatorIds.length) warnings.push(`Session "${title}" on ${date}: no presenters`);
-    if (start >= end) errors.push(`Session "${title}" on ${date}: start ${start} is not before end ${end}`);
+    if (!people.length) warnings.push(`Session "${title}" on ${date}: no presenters`);
+    if (start === end) errors.push(`Session "${title}" on ${date}: starts and ends at ${start}`);
+    else if (start > end) warnings.push(`Session "${title}" on ${date}: ${start}-${end} runs past midnight`);
 
     sessions.push({
       id: null,
@@ -173,8 +185,7 @@ $('div[class^="schedule"]').each((_, grid) => {
       attendance,
       notes: sessionNotes,
       separateTicket: /separate ticket/i.test(title + ' ' + sessionNotes.join(' ')),
-      speakers: speakerIds,
-      moderators: moderatorIds,
+      people,
       topics: [],
     });
   });
@@ -193,7 +204,12 @@ function venueFor(s) {
   if (/^CINEMA MASSIMO/i.test(s.roomFull)) return 'Cinema Massimo';
   const day = Number(s.date.slice(-2));
   for (const v of venues) {
-    const days = (v.when.match(/\d+/g) || []).map(Number);
+    const days = [];
+    for (const m of v.when.matchAll(/(\d+)(?:\s*-\s*(\d+))?/g)) {
+      const a = Number(m[1]);
+      const b = m[2] ? Number(m[2]) : a;
+      for (let d = a; d <= b; d++) days.push(d);
+    }
     if (days.includes(day)) return clean(v.where.split(/\s+-\s+|,/)[0]);
   }
   return null;
@@ -203,20 +219,47 @@ for (const s of sessions) {
   if (!s.venue) warnings.push(`Session "${s.title}" on ${s.date}: could not determine venue`);
 }
 
-// Stable ids: the official article id when unique, otherwise title + date.
-const idCounts = new Map();
+// Stable ids. Picks and shared links are keyed by id, so an id must survive
+// upstream edits. New ids are the official article id ("a1301") or, for
+// sessions without an article page, title + day. Ids from the previous
+// program.json are carried forward for sessions that are recognisably the
+// same (same article, else same title, else same time and room).
+const previous = (() => {
+  try {
+    return existsSync(OUTPUT) ? JSON.parse(readFileSync(OUTPUT, 'utf8')).sessions || [] : [];
+  } catch {
+    return [];
+  }
+})();
+const slot = (x) => `${x.date} ${x.start} ${x.room}`;
+const taken = new Set();
+const MATCHERS = [
+  (n, o) => n.url && n.url === o.url && slot(n) === slot(o),
+  (n, o) => n.url && n.url === o.url,
+  (n, o) => norm(n.title) === norm(o.title) && n.date === o.date,
+  (n, o) => norm(n.title) === norm(o.title),
+  (n, o) => slot(n) === slot(o),
+];
+for (const match of MATCHERS) {
+  for (const s of sessions) {
+    if (s.id) continue;
+    const old = previous.filter((o) => !taken.has(o.id) && match(s, o));
+    if (old.length === 1) {
+      s.id = old[0].id;
+      taken.add(s.id);
+    }
+  }
+}
 for (const s of sessions) {
+  if (s.id) continue;
   const a = articleId(s.url);
-  s.id = a ? `a${a}` : `${slugify(s.title)}-${s.date.slice(-2)}`;
-  idCounts.set(s.id, (idCounts.get(s.id) || 0) + 1);
-}
-for (const s of sessions) {
-  if (idCounts.get(s.id) > 1) s.id = `${s.id}-${s.date.slice(-2)}-${s.start.replace(':', '')}`;
-}
-const finalIds = new Set();
-for (const s of sessions) {
-  if (finalIds.has(s.id)) errors.push(`Duplicate session id ${s.id}`);
-  finalIds.add(s.id);
+  const base = a ? `a${a}` : `${slugify(s.title)}-${s.date.slice(-2)}`;
+  let id = base;
+  // A repeat (e.g. an overflow room) gets a suffix; existing ids never change.
+  if (taken.has(id)) id = `${base}-${s.date.slice(-2)}-${s.start.replace(':', '')}-${slugify(s.room)}`;
+  for (let k = 2; taken.has(id); k++) id = `${base}-${k}`;
+  s.id = id;
+  taken.add(id);
 }
 
 // ---------------------------------------------------------------------------
@@ -232,7 +275,10 @@ function findSession(liText, $li) {
   const end = m[6].padStart(5, '0');
   const roomFull = clean(m[7]);
   const title = clean($li.children('i, a').first().text());
-  const candidates = sessions.filter((s) => s.date === date && s.start === start && s.roomFull === roomFull);
+  const href = $li.find('a').attr('href');
+  let candidates = sessions.filter((s) => s.date === date && s.start === start && s.roomFull === roomFull);
+  // Two sessions in the same slot and room: tell them apart by link or title.
+  if (candidates.length > 1) candidates = candidates.filter((s) => (href && s.url === href) || norm(s.title) === norm(title));
   if (candidates.length !== 1) {
     return { error: `List item "${title}" (${date} ${start} ${roomFull}) matched ${candidates.length} sessions` };
   }
@@ -246,6 +292,10 @@ const topics = [];
 $('a[name]').each((_, a) => {
   const key = $(a).attr('name');
   if (!key || key === 'top' || /^day\d+$/.test(key) || key === 'sessions-by-speaker') return;
+  if (!/^[a-z0-9-]+$/.test(key)) {
+    warnings.push(`Skipping topic list with unexpected anchor "${key}"`);
+    return;
+  }
   const $h3 = $(a).next('h3');
   const label = clean($h3.find('a').first().text() || $h3.text()).replace(/\s+Sessions$/i, '');
   const $list = $h3.next('div').children('ul').first();
@@ -254,7 +304,7 @@ $('a[name]').each((_, a) => {
     const $li = $(li);
     const r = findSession($li.text(), $li);
     if (r.error) {
-      errors.push(`Topic "${label}": ${r.error}`);
+      warnings.push(`Topic "${label}": ${r.error} (tag skipped)`);
       return;
     }
     if (!r.session.topics.includes(key)) r.session.topics.push(key);
@@ -289,30 +339,50 @@ $speakerList.children('li').each((_, li) => {
       return;
     }
     const s = r.session;
-    if (!s.speakers.includes(key) && !s.moderators.includes(key)) {
+    if (!s.people.some((p) => p.id === key)) {
       warnings.push(`Speaker index puts "${name}" in "${s.title}" but the grid doesn't list them`);
     }
   });
 });
 
 for (const s of sessions) {
-  for (const k of [...s.speakers, ...s.moderators]) speakers.get(k).sessions.push(s.id);
+  for (const p of s.people) speakers.get(p.id).sessions.push(s.id);
 }
 
 // ---------------------------------------------------------------------------
 // Descriptions and speaker photos from the article pages (scripts/fetch-articles.mjs)
 // ---------------------------------------------------------------------------
 const articles = existsSync(ARTICLES) ? JSON.parse(readFileSync(ARTICLES, 'utf8')) : {};
+// Article photo slugs don't always match the grid's speaker slugs
+// ("michael-mccusker" vs "michael-mccusker-ace", "jaime-raffone" vs
+// "jamie-raffone"), so match each article's photos against that session's
+// own presenters: exact slug first, then a unique surname.
+const NAME_NOISE = new Set(['dr', 'sir', 'ace', 'asc', 'bsc', 'cbe', 'ias', 'jr', 'sr', 'phd', 'ph', 'd', 'm', 'ves']);
+const nameTokens = (s) =>
+  clean(s)
+    .replace(/"[^"]*"|&#34;[^&]*&#34;/g, ' ')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((t) => t && !NAME_NOISE.has(t));
+const surnameOf = (s) => nameTokens(s).slice(-1)[0];
 const photos = new Map();
-for (const art of Object.values(articles)) {
-  for (const [slug, src] of Object.entries(art.photos || {})) photos.set(norm(slug.replace(/"/g, '')), src);
-}
 let described = 0;
 for (const s of sessions) {
   const art = articles[articleId(s.url)];
   s.lede = art ? art.lede || '' : '';
   s.body = art ? art.body || [] : [];
   if (s.lede || s.body.length) described++;
+  for (const [slug, src] of Object.entries((art && art.photos) || {})) {
+    const key = norm(slug.replace(/"/g, ''));
+    let match = s.people.find((p) => p.id === key);
+    if (!match) {
+      const candidates = s.people.filter((p) => surnameOf(speakers.get(p.id).name) === surnameOf(slug.replace(/-/g, ' ')));
+      if (candidates.length === 1) match = candidates[0];
+    }
+    if (match && !photos.has(match.id)) photos.set(match.id, src);
+  }
 }
 for (const sp of speakers.values()) sp.photo = photos.get(sp.id) || null;
 
@@ -320,6 +390,15 @@ for (const sp of speakers.values()) sp.photo = photos.get(sp.id) || null;
 // Sanity checks and output
 // ---------------------------------------------------------------------------
 if (sessions.length < MIN_SESSIONS) errors.push(`Only ${sessions.length} sessions found (expected at least ${MIN_SESSIONS})`);
+// A cut-off download can still contain the day grids; the page ends with the
+// speaker index and an "Updated on" footer.
+if (!/<\/html>\s*$/i.test(html)) errors.push('Page does not end with </html> (truncated download?)');
+if (!$('a[name="sessions-by-speaker"]').length) errors.push('Speaker index is missing (truncated download?)');
+if (!updatedText) errors.push('"Updated on" footer is missing (truncated download?)');
+// Refuse a sudden big shrink unless someone runs it deliberately.
+if (previous.length && !process.env.ALLOW_SHRINK && sessions.length < previous.length * 0.8) {
+  errors.push(`Session count dropped from ${previous.length} to ${sessions.length}; set ALLOW_SHRINK=1 to accept`);
+}
 if (days.length < 3) errors.push(`Only ${days.length} days found`);
 
 sessions.sort((a, b) => a.date.localeCompare(b.date) || a.start.localeCompare(b.start) || a.end.localeCompare(b.end) || a.room.localeCompare(b.room));
@@ -376,6 +455,29 @@ mkdirSync(ICS_DIR, { recursive: true });
 for (const s of sessions) writeFileSync(join(ICS_DIR, `${s.id}.ics`), sessionIcs(s));
 console.log(`Wrote ${sessions.length} calendar files to ${ICS_DIR}`);
 
+// "With A (title), B (title, remote). Moderator: C (title)."
+function describePeople(s) {
+  const groups = [];
+  for (const p of s.people) {
+    const last = groups[groups.length - 1];
+    if (last && last.role === p.role) last.people.push(p);
+    else groups.push({ role: p.role, people: [p] });
+  }
+  return groups
+    .map((g) => {
+      const names = g.people
+        .map((p) => {
+          const sp = speakers.get(p.id);
+          const extra = [sp.title, p.remote ? 'remote' : ''].filter(Boolean).join(', ');
+          return `${sp.name}${extra ? ` (${extra})` : ''}`;
+        })
+        .join(', ');
+      if (!g.role) return `With ${names}`;
+      return g.role === 'Moderator' ? `Moderator: ${names}` : `${g.role} ${names}`;
+    })
+    .join('. ');
+}
+
 function romeToUtc(date, time) {
   const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
   const [y, m, d] = date.split('-').map(Number);
@@ -409,8 +511,9 @@ function sessionIcs(s) {
     parts.push(cur);
     return parts.join('\r\n');
   };
-  const venue = venues.find((v) => norm(v.where).startsWith(norm(s.venue || '').slice(0, 3)));
-  const people = [...s.speakers, ...s.moderators].map((k) => speakers.get(k)).map((p) => `${p.name}${p.title ? ` (${p.title})` : ''}`).join(', ');
+  const venue = s.venue ? venues.find((v) => norm(v.where).startsWith(norm(s.venue).slice(0, 3))) : null;
+  const endDate = s.end > s.start ? s.date : new Date(Date.parse(`${s.date}T12:00:00Z`) + 864e5).toISOString().slice(0, 10);
+  const people = describePeople(s);
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
@@ -421,10 +524,10 @@ function sessionIcs(s) {
     `UID:${s.id}@view26-program`,
     'DTSTAMP:20261001T000000Z',
     `DTSTART:${stamp(romeToUtc(s.date, s.start))}`,
-    `DTEND:${stamp(romeToUtc(s.date, s.end))}`,
+    `DTEND:${stamp(romeToUtc(endDate, s.end))}`,
     `SUMMARY:${escText(s.title)}`,
-    `LOCATION:${escText(`${s.room}, ${venue ? venue.where : s.venue}`)}`,
-    `DESCRIPTION:${escText(`${s.typeLabel}${people ? ` with ${people}` : ''}${s.url ? `\n${s.url}` : ''}`)}`,
+    `LOCATION:${escText(venue ? `${s.room}, ${venue.where}` : [s.room, s.venue].filter(Boolean).join(', '))}`,
+    `DESCRIPTION:${escText(`${s.typeLabel}${people ? `. ${people}` : ''}${s.url ? `\n${s.url}` : ''}`)}`,
     ...(s.url ? [`URL:${s.url}`] : []),
     'END:VEVENT',
     'END:VCALENDAR',

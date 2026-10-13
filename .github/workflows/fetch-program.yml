@@ -7,8 +7,9 @@ name: Update program
 # program, in which case nothing is committed and the live data is untouched.
 on:
   schedule:
-    # Every 20 minutes, 07:00-22:59 Turin time (05-20 UTC), Oct 12-16.
-    - cron: "*/20 5-20 12-16 10 *"
+    # Every 20 minutes, 07:07-22:47 Turin time (05-20 UTC), Oct 12-16. Off the
+    # top of the hour, when GitHub most often delays scheduled runs.
+    - cron: "7-59/20 5-20 12-16 10 *"
   workflow_dispatch:
   push:
     paths:
@@ -26,7 +27,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -47,23 +48,30 @@ jobs:
           ls -la data/source/view_CET.html
 
       - name: Fetch session descriptions
-        # New articles only, except a full refresh on manual runs and on the
-        # first scheduled run of each day.
+        # New articles only, plus a full refresh once a day (and on manual
+        # runs). Descriptions are optional: if this fails or hangs, the program
+        # itself is still parsed and committed.
+        continue-on-error: true
+        timeout-minutes: 6
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$(date -u +%H)" = "05" -a "$(date -u +%M)" -lt 20 ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             node scripts/fetch-articles.mjs --all
           else
-            node scripts/fetch-articles.mjs
+            node scripts/fetch-articles.mjs --daily
           fi
 
       - name: Parse into site/data/program.json
+        # A manual run may accept a much smaller program (e.g. after a real
+        # cancellation of many sessions); scheduled runs refuse it.
+        env:
+          ALLOW_SHRINK: ${{ github.event_name == 'workflow_dispatch' && '1' || '' }}
         run: node scripts/parse-program.mjs
 
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A data/source/view_CET.html data/articles.json site/data/program.json site/ics
+          git add -A data/source/view_CET.html data/articles.json data/articles-refreshed.txt site/data/program.json site/ics
           if git diff --cached --quiet; then
             echo "Program unchanged"
           else

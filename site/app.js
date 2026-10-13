@@ -9,7 +9,13 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-  const fold = (s) => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const fold = (s) =>
+    String(s ?? '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[\u2018\u2019\u02bc`´]/g, "'")
+      .replace(/[\u201c\u201d]/g, '"')
+      .toLowerCase();
   const plural = (n, one, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
   const ICON = {
@@ -37,6 +43,7 @@
     rooms: new Set(),
     speakers: new Set(),
     picksOnly: false,
+    showPast: false, // in results, include days that are already over
   };
   let tokens = [];
   let picks = new Set(readJSON(localStorageSafe(), PICKS_KEY, []));
@@ -111,6 +118,10 @@
     return new Date(guess);
   }
   const icsStamp = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const endUtcOf = (s) => {
+    const d = romeToUtc(s.date, s.end);
+    return s.end > s.start ? d : new Date(d.getTime() + 24 * 3600 * 1000);
+  };
 
   const WEEKDAY = { Mon: 'Monday', Tue: 'Tuesday', Wed: 'Wednesday', Thu: 'Thursday', Fri: 'Friday', Sat: 'Saturday', Sun: 'Sunday' };
   const dayOf = (date) => P.days.find((d) => d.date === date);
@@ -123,10 +134,13 @@
     return d ? `${WEEKDAY[d.weekday] || d.weekday} ${d.dayOfMonth} October` : date;
   };
 
+  // A session that ends after midnight ("21:30-00:15") ends at 24:00 for
+  // today's purposes.
+  const endOf = (s) => (s.end > s.start ? s.end : '24:00');
   function statusOf(s, n) {
     if (s.date < n.date) return 'past';
     if (s.date > n.date) return 'future';
-    if (s.end <= n.time) return 'past';
+    if (endOf(s) <= n.time) return 'past';
     if (s.start <= n.time) return 'live';
     return 'future';
   }
@@ -151,10 +165,12 @@
     P.speakers.forEach((sp) => speakerById.set(sp.id, sp));
     for (const s of P.sessions) {
       byId.set(s.id, s);
-      const people = [...s.speakers, ...s.moderators].map((id) => speakerById.get(id)).filter(Boolean);
+      s.people = (s.people || []).filter((p) => speakerById.has(p.id));
+      const people = s.people.map((p) => speakerById.get(p.id));
       s._people = people;
       s._hayMain = fold([s.title, s.lede, ...people.map((p) => `${p.name} ${p.title}`)].join(' \n '));
-      s._hayMeta = fold([s.room, s.venue, s.type, s.typeLabel, ...s.topics.map((k) => topicByKey.get(k)?.label), ...s.notes].join(' \n '));
+      s._hayRoles = fold(s.people.map((p) => `${p.role || ''} ${p.remote ? 'remote' : ''}`).join(' '));
+      s._hayMeta = fold([s.room, s.venue, s.type, s.typeLabel, ...s.topics.map((k) => topicByKey.get(k)?.label), ...s.notes, s._hayRoles].join(' \n '));
       s._bodyText = (s.body || []).map((b) => b.p || b.h).join(' ');
       s._hayBody = fold(s._bodyText);
     }
@@ -162,7 +178,8 @@
   }
 
   function venueAddress(venueName) {
-    const v = (P.venues || []).find((x) => fold(x.where).startsWith(fold(venueName || '').slice(0, 3)));
+    if (!venueName) return '';
+    const v = (P.venues || []).find((x) => fold(x.where).startsWith(fold(venueName).slice(0, 3)));
     return v ? v.where : venueName;
   }
 
@@ -176,7 +193,7 @@
     if (skip !== 'topics' && state.topics.size && !s.topics.some((t) => state.topics.has(t))) return false;
     if (skip !== 'types' && state.types.size && !state.types.has(s.type)) return false;
     if (skip !== 'rooms' && state.rooms.size && !state.rooms.has(s.room)) return false;
-    if (skip !== 'speakers' && state.speakers.size && ![...s.speakers, ...s.moderators].some((id) => state.speakers.has(id))) return false;
+    if (skip !== 'speakers' && state.speakers.size && !s.people.some((p) => state.speakers.has(p.id))) return false;
     if (state.picksOnly && !picks.has(s.id)) return false;
     if (tokens.length && !tokens.every((t) => s._hayMain.includes(t) || s._hayMeta.includes(t) || s._hayBody.includes(t))) return false;
     return true;
@@ -186,7 +203,7 @@
 
   function conflictsFor(s) {
     if (!picks.has(s.id)) return [];
-    return P.sessions.filter((o) => o !== s && picks.has(o.id) && o.date === s.date && o.start < s.end && s.start < o.end);
+    return P.sessions.filter((o) => o !== s && picks.has(o.id) && o.date === s.date && o.start < endOf(s) && s.start < endOf(o));
   }
 
   // ---------------------------------------------------------------------------
@@ -231,7 +248,9 @@
 
   function snippet(s) {
     // Only when the match isn't visible on the card already.
-    const visible = fold([s.title, ...s._people.map((p) => p.name), s.room, s.type].join(' '));
+    const main = s.people.filter((p) => !p.role);
+    const shownTitle = main.length === 1 ? speakerById.get(main[0].id).title : '';
+    const visible = fold([s.title, ...s._people.map((p) => p.name), shownTitle, s.room, s.type].join(' '));
     const missing = tokens.filter((t) => !visible.includes(t));
     if (!missing.length) return '';
     for (const text of [s.lede, ...s._people.map((p) => `${p.name}: ${p.title}`), s._bodyText]) {
@@ -320,7 +339,7 @@
   }
 
   function chip({ label, pressed, attrs = '', color, n, removable, disabled, cls = '' }) {
-    const dot = color ? `<span class="dot" style="--c:var(--t-${color})"></span>` : '';
+    const dot = color ? `<span class="dot" style="--c:var(--t-${esc(color)})"></span>` : '';
     const count = n != null ? `<span class="n">${n}</span>` : '';
     const x = removable ? ICON.x : '';
     return `<button type="button" class="chip${removable ? ' removable' : ''}${cls ? ` ${cls}` : ''}" ${pressed != null ? `aria-pressed="${pressed}"` : ''} ${disabled ? 'disabled' : ''} ${attrs}>${dot}${esc(label)}${count}${x}</button>`;
@@ -348,26 +367,52 @@
       const n = facetCount('topics', (s) => s.topics.includes(t.key));
       parts.push(chip({ label: t.label, color: t.key, n, pressed: false, disabled: !n, attrs: `data-toggle="topics" data-value="${esc(t.key)}"` }));
     }
-    $('#chips-row').innerHTML = parts.join('');
+    const row = $('#chips-row');
+    row.innerHTML = parts.join('');
+    // Selected chips come first; show them rather than wherever the row was scrolled.
+    row.scrollLeft = 0;
   }
 
   const countValidPicks = () => [...picks].filter((id) => byId.has(id)).length;
 
-  function speakersLine(s) {
-    const sp = s.speakers.map((id) => speakerById.get(id)).filter(Boolean);
-    const mods = s.moderators.map((id) => speakerById.get(id)).filter(Boolean);
-    let html;
-    if (sp.length === 1) {
-      html = `<b>${highlight(sp[0].name)}</b>${sp[0].title ? `, ${highlight(sp[0].title)}` : ''}`;
-    } else {
-      const shown = sp.slice(0, 5).map((p) => `<b>${highlight(p.name)}</b>`);
-      html = shown.join(', ') + (sp.length > 5 ? ` +${sp.length - 5} more` : '');
+  // People grouped by role, in page order: presenters first, then
+  // "Moderator: …", "In conversation with …", "Introduced by …".
+  function roleGroups(s) {
+    const groups = [];
+    for (const p of s.people) {
+      const last = groups[groups.length - 1];
+      if (last && last.role === p.role) last.people.push(p);
+      else groups.push({ role: p.role, people: [p] });
     }
-    if (mods.length) html += `${html ? ' · ' : ''}Moderator: ${mods.map((p) => highlight(p.name)).join(', ')}`;
-    return html;
+    return groups;
   }
 
-  function cardHtml(s, n, nextStart, showDay) {
+  function speakersLine(s) {
+    const nameHtml = (p, strong) => {
+      const sp = speakerById.get(p.id);
+      const name = strong ? `<b>${highlight(sp.name)}</b>` : highlight(sp.name);
+      return name + (p.remote ? ' <span class="remote">(remote)</span>' : '');
+    };
+    return roleGroups(s)
+      .map((g) => {
+        if (!g.role) {
+          if (g.people.length === 1) {
+            const sp = speakerById.get(g.people[0].id);
+            return nameHtml(g.people[0], true) + (sp.title ? `, ${highlight(sp.title)}` : '');
+          }
+          // Show the first five, plus anyone further down who matches the search.
+          const hit = (p) => tokens.some((t) => fold(speakerById.get(p.id).name).includes(t));
+          const shown = g.people.filter((p, i) => i < 5 || hit(p));
+          const more = g.people.length - shown.length;
+          return shown.map((p) => nameHtml(p, true)).join(', ') + (more ? ` +${more} more` : '');
+        }
+        const label = g.role === 'Moderator' ? 'Moderator:' : esc(g.role);
+        return `${label} ${g.people.map((p) => nameHtml(p, !s.people.some((x) => !x.role))).join(', ')}`;
+      })
+      .join(' · ');
+  }
+
+  function cardHtml(s, n, nextStart, dimAllPast) {
     const st = statusOf(s, n);
     const isNext = st === 'future' && s.date === n.date && s.start === nextStart;
     const pills = [];
@@ -377,10 +422,10 @@
     const conflicts = conflictsFor(s);
     const snip = tokens.length ? snippet(s) : '';
     const picked = picks.has(s.id);
-    return `<article class="card${st === 'live' ? ' live' : ''}${st === 'past' && s.date === n.date ? ' past' : ''}" id="c-${esc(s.id)}" data-id="${esc(s.id)}">
+    return `<article class="card${st === 'live' ? ' live' : ''}${st === 'past' && (dimAllPast || s.date === n.date) ? ' past' : ''}" id="c-${esc(s.id)}" data-id="${esc(s.id)}">
       <div class="card-open">
         <div class="meta">
-          <span class="time">${showDay ? `${esc(dayShort(s.date))} · ` : ''}<time datetime="${s.date}T${s.start}">${s.start}</time>–${s.end}</span>
+          <span class="time"><time datetime="${s.date}T${s.start}">${s.start}</time>–${s.end}</span>
           <span class="room">${highlight(s.room)}</span>
           <span class="type">${highlight(s.typeLabel)}</span>
           ${pills.join('')}
@@ -424,11 +469,21 @@
     }
 
     const found = results();
-    const days = [...new Set(found.map((s) => s.date))];
+    const allDays = [...new Set(found.map((s) => s.date))];
+    // Once the conference is under way, results start from today; earlier
+    // days are one tap away rather than filling the first screens.
+    const pastDays = allDays.filter((d) => d < n.date);
+    const hidePast = !state.showPast && pastDays.length && pastDays.length < allDays.length;
+    const days = hidePast ? allDays.filter((d) => d >= n.date) : allDays;
+    const shown = found.filter((s) => days.includes(s.date));
     const what = state.picksOnly && !tokens.length && !hasFilters() ? 'picked' : 'matching';
+    const earlier = found.length - shown.length;
     status.innerHTML = found.length
-      ? `${plural(found.length, `${what} session`)}${days.length > 1 ? ` across ${plural(days.length, 'day')}` : ''}`
-      : '';
+      ? `${plural(shown.length, `${what} session`)}${hidePast ? ' from today on' : days.length > 1 ? ` across ${plural(days.length, 'day')}` : ''}` +
+        (hidePast ? ` · <button type="button" data-act="show-past">Show ${earlier} earlier</button>` : '')
+      : state.picksOnly && !tokens.length && !hasFilters()
+        ? 'No picks yet'
+        : 'No sessions match';
 
     if (!found.length) {
       list.innerHTML = emptyHtml();
@@ -436,11 +491,11 @@
     }
     list.innerHTML = days
       .map((date) => {
-        const items = found.filter((s) => s.date === date);
+        const items = shown.filter((s) => s.date === date);
         const d = dayOf(date);
         return `<section class="group" data-date="${date}" id="d-${date}">
           <h2 class="group-head day-head">${esc(dayLong(date))}<span class="sub">${d?.venue ? esc(d.venue) + ' · ' : ''}${plural(items.length, 'session')}</span></h2>
-          ${items.map((s) => cardHtml(s, n, nextStart, false)).join('')}
+          ${items.map((s) => cardHtml(s, n, nextStart, true)).join('')}
         </section>`;
       })
       .join('');
@@ -467,18 +522,28 @@
 
   function renderNowButton() {
     const n = now();
-    const show = !finding() && state.day === n.date && P.sessions.some((s) => s.date === n.date && s.end > n.time);
+    const show = !finding() && state.day === n.date && P.sessions.some((s) => s.date === n.date && endOf(s) > n.time);
     $('#now-btn').hidden = !show;
   }
 
+  const minutes = (t) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));
   function jumpToNow() {
     const n = now();
-    const groups = $$('#list .group[data-start]');
-    // The first time slot that still has a session running or upcoming.
-    const target = groups.find((g) => $$('.card', g).some((c) => statusOf(byId.get(c.dataset.id), n) !== 'past'));
+    const today = P.sessions.filter((s) => s.date === n.date);
+    const live = today.filter((s) => statusOf(s, n) === 'live');
+    // Long sessions (the 4-hour labs) are live all afternoon; prefer the most
+    // recent regular slot that's running, then the next one to start.
+    const regular = live.filter((s) => minutes(endOf(s)) - minutes(s.start) <= 120);
+    const upcoming = today.filter((s) => statusOf(s, n) === 'future');
+    let start = null;
+    if (regular.length) start = regular.map((s) => s.start).sort().pop();
+    else if (upcoming.length) start = upcoming.map((s) => s.start).sort()[0];
+    else if (live.length) start = live.map((s) => s.start).sort().pop();
+    const target = start && $(`#list .group[data-start="${start}"]`);
     if (!target) return;
-    const live = $('.card.live', target);
-    (live || target).scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    target.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    const link = $('.card-link', target);
+    if (link) link.focus({ preventScroll: true });
   }
 
   // Live/Next badges change over the day; refresh once a minute without
@@ -492,7 +557,7 @@
       if (!s) continue;
       const st = statusOf(s, n);
       card.classList.toggle('live', st === 'live');
-      card.classList.toggle('past', st === 'past' && s.date === n.date);
+      card.classList.toggle('past', st === 'past' && (finding() || s.date === n.date));
       const meta = $('.meta', card);
       $$('.pill.live, .pill.next', meta).forEach((p) => p.remove());
       const isNext = st === 'future' && s.date === n.date && s.start === nextStart;
@@ -512,7 +577,14 @@
   }
   let lastToday = null;
   function renderDaysTodayMarker(n) {
-    if (lastToday && lastToday !== n.date) renderDays();
+    if (lastToday && lastToday !== n.date) {
+      // The date changed while the app was open (e.g. left open overnight):
+      // move from yesterday to today, unless the user picked another day.
+      if (state.day === lastToday && dayOf(n.date)) state.day = n.date;
+      lastToday = n.date;
+      render();
+      return;
+    }
     lastToday = n.date;
   }
 
@@ -525,33 +597,30 @@
     const picked = picks.has(s.id);
     const conflicts = conflictsFor(s);
     const address = venueAddress(s.venue);
-    const people = [
-      ...s.speakers.map((id) => ({ sp: speakerById.get(id), mod: false })),
-      ...s.moderators.map((id) => ({ sp: speakerById.get(id), mod: true })),
-    ].filter((x) => x.sp);
+    const people = s.people.map((p) => ({ sp: speakerById.get(p.id), role: p.role, remote: p.remote }));
     const peopleHtml = people
-      .map(({ sp, mod }) => {
+      .map(({ sp, role, remote }) => {
         const others = sp.sessions.filter((id) => id !== s.id && byId.has(id)).map((id) => byId.get(id));
         const initials = sp.name.split(/\s+/).filter((w) => /^\p{L}/u.test(w)).slice(0, 2).map((w) => w[0]).join('');
         const avatar = `<span class="avatar" aria-hidden="true">${esc(initials)}${
           sp.photo ? `<img src="${esc(sp.photo)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">` : ''
         }</span>`;
         return `<li class="person">${avatar}<div class="person-text">
-          <div class="person-name">${sp.url ? `<a href="${esc(sp.url)}" target="_blank" rel="noopener">${esc(sp.name)}</a>` : esc(sp.name)}${mod ? ' <span class="pill next">Moderator</span>' : ''}</div>
+          <div class="person-name">${sp.url ? `<a href="${esc(sp.url)}" target="_blank" rel="noopener">${esc(sp.name)}</a>` : esc(sp.name)}${role ? ` <span class="pill next">${esc(role)}</span>` : ''}${remote ? ' <span class="pill remote">Remote</span>' : ''}</div>
           ${sp.title ? `<div class="person-role">${esc(sp.title)}</div>` : ''}
           ${others.map((o) => `<div class="person-more"><button type="button" data-open="${esc(o.id)}">Also: ${esc(dayShort(o.date))} ${o.start} · ${esc(o.title)}</button></div>`).join('')}
         </div></li>`;
       })
       .join('');
     const body = (s.body || []).map((b) => (b.h ? `<h4>${esc(b.h)}</h4>` : `<p>${esc(b.p)}</p>`)).join('');
-    const notes = [...(s.separateTicket ? ['Separate ticket'] : []), ...s.notes.filter((x) => !/separate ticket/i.test(x) || !s.separateTicket)];
+    const notes = [...(s.separateTicket && !s.notes.some((x) => /separate ticket/i.test(x)) ? ['Separate ticket'] : []), ...s.notes];
     const startUtc = romeToUtc(s.date, s.start);
-    const endUtc = romeToUtc(s.date, s.end);
+    const endUtc = endUtcOf(s);
     const gcal =
       'https://calendar.google.com/calendar/render?action=TEMPLATE' +
       `&text=${encodeURIComponent(s.title)}` +
       `&dates=${icsStamp(startUtc)}/${icsStamp(endUtc)}` +
-      `&location=${encodeURIComponent(`${s.room}, ${address}`)}` +
+      `&location=${encodeURIComponent([s.room, address].filter(Boolean).join(', '))}` +
       `&details=${encodeURIComponent(`${s.typeLabel} at VIEW Conference 2026${s.url ? `\n${s.url}` : ''}`)}`;
 
     return `<div class="sheet-head">
@@ -581,15 +650,16 @@
       </div>`;
   }
 
+  let lastShownSession = null;
   function showSession(id, { push = true } = {}) {
     const s = byId.get(id);
     if (!s) return;
+    lastShownSession = id;
     const dlg = $('#session-sheet');
     dlg.innerHTML = sessionSheetHtml(s);
-    if (push) {
-      if (openSheet === dlg) history.replaceState({ sheet: 'session' }, '', buildUrl(id));
-      else history.pushState({ sheet: 'session' }, '', buildUrl(id));
-    }
+    // Each session opened gets its own history entry, so Back from a session
+    // reached via "Also:" returns to the previous one.
+    if (push && currentSessionId() !== id) history.pushState({ sheet: 'session' }, '', buildUrl(id));
     openDialog(dlg);
     $('.sheet-body', dlg).scrollTop = 0;
   }
@@ -603,12 +673,12 @@
         <button type="button" class="icon-btn" data-act="close" aria-label="Close">${ICON.close}</button></div>
       <div class="sheet-body" id="filter-body">
         <section class="f-section"><h3>Subject</h3><div class="f-chips" id="f-topics"></div></section>
+        <section class="f-section"><h3>Format <small>Light Pass: talks, panels and keynotes</small></h3><div class="f-chips" id="f-types"></div></section>
+        <section class="f-section"><h3>Room</h3><div class="f-chips" id="f-rooms"></div></section>
         <section class="f-section"><h3>Speaker <small id="f-speaker-count"></small></h3>
           <input class="f-search" id="f-speaker-q" type="search" placeholder="Find a speaker or studio" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Find a speaker or studio">
           <ul class="speaker-list" id="f-speakers"></ul>
         </section>
-        <section class="f-section"><h3>Format <small>Light Pass: talks, panels and keynotes</small></h3><div class="f-chips" id="f-types"></div></section>
-        <section class="f-section"><h3>Room</h3><div class="f-chips" id="f-rooms"></div></section>
       </div>
       <div class="sheet-foot">
         <button type="button" class="btn" data-act="clear-filters">Clear</button>
@@ -679,11 +749,11 @@
       : `<li class="empty" style="padding:16px 0">No speaker matches “${esc(speakerQuery)}”.</li>`;
   }
 
-  function showFilters() {
+  function showFilters({ push = true } = {}) {
     const dlg = $('#filter-sheet');
     speakerQuery = '';
     dlg.innerHTML = filterSheetHtml();
-    history.pushState({ sheet: 'filters' }, '', buildUrl());
+    if (push) history.pushState({ sheet: 'filters' }, '', buildUrl());
     openDialog(dlg);
     updateFilterSheet();
   }
@@ -691,7 +761,7 @@
   // ---------------------------------------------------------------------------
   // Info sheet
   // ---------------------------------------------------------------------------
-  function showInfo() {
+  function showInfo({ push = true } = {}) {
     const dlg = $('#info-sheet');
     const venues = (P.venues || [])
       .map((v) => `<div class="venue"><b>${esc(v.when.replace(/\s*Location$/i, ''))}</b><span>${esc(v.where)}</span><br>
@@ -712,7 +782,7 @@
         <h3>Source</h3>
         <p>Sessions, times and rooms come from the <a href="${esc(P.source.url)}" target="_blank" rel="noopener">official VIEW Conference 2026 program</a>${P.source.updated ? ` (updated ${esc(P.source.updated)})` : ''}, and are re-checked every 20 minutes during the conference. If something here disagrees with signage at the venue, trust the venue.</p>
       </div>`;
-    history.pushState({ sheet: 'info' }, '', buildUrl());
+    if (push) history.pushState({ sheet: 'info' }, '', buildUrl());
     openDialog(dlg);
   }
 
@@ -738,25 +808,66 @@
     }
   }
 
+  // Re-rendering replaces the control that had focus; put keyboard and
+  // screen-reader focus back on its replacement.
+  function focusSelectors(el) {
+    if (!el || el === document.body) return [];
+    const q = (a) => `[${a}="${CSS.escape(el.getAttribute(a))}"]`;
+    if (el.hasAttribute('data-star')) return [q('data-star')];
+    if (el.hasAttribute('data-day')) return [q('data-day')];
+    if (el.hasAttribute('data-open')) return [q('data-open')];
+    if (el.hasAttribute('data-speaker')) return [q('data-speaker')];
+    if (el.dataset.toggle) {
+      const v = CSS.escape(el.dataset.value);
+      return [`[data-toggle="${el.dataset.toggle}"][data-value="${v}"]`, `[data-remove="${el.dataset.toggle}"][data-value="${v}"]`];
+    }
+    if (el.hasAttribute('data-act')) return [q('data-act')];
+    return [];
+  }
+  function keepFocus(fn) {
+    const active = document.activeElement;
+    const sels = focusSelectors(active);
+    const inDialog = !!(active && active.closest && active.closest('dialog'));
+    fn();
+    if (!sels.length || (active && active.isConnected)) return;
+    for (const sel of sels) {
+      const el = $$(sel).find((x) => !!x.closest('dialog') === inDialog && x.offsetParent !== null);
+      if (el) {
+        el.focus({ preventScroll: true });
+        return;
+      }
+    }
+  }
+
   // History entries are only pushed for open sheets, so Back means "close the
   // sheet" (or step back to the previous session). Filters and search live in
-  // `state`, not in history, so write them back into the restored URL.
+  // `state`, not in history, so write them back into the restored URL. The
+  // list is already current, so it isn't rebuilt (that would drop focus).
   window.addEventListener('popstate', () => {
     const id = currentSessionId();
     const open = id && byId.has(id) ? id : null;
+    const wasSession = $('#session-sheet').open ? lastShownSession : null;
     if (open) showSession(open, { push: false });
     else closeDialogs();
     history.replaceState(history.state, '', buildUrl(open));
-    render();
+    $('#clear-q').hidden = !state.q;
+    // If the card that opened the sheet was re-rendered meanwhile, return focus to its replacement.
+    if (!open && wasSession && (document.activeElement === document.body || !document.activeElement)) {
+      const link = $(`#c-${CSS.escape(wasSession)} .card-link`);
+      if (link) link.focus({ preventScroll: true });
+    }
   });
 
   // ---------------------------------------------------------------------------
   // Actions
   // ---------------------------------------------------------------------------
   function changed({ keepScroll = false } = {}) {
+    state.showPast = false;
     syncUrl();
-    render();
-    updateFilterSheet({ speakers: false });
+    keepFocus(() => {
+      render();
+      updateFilterSheet({ speakers: false });
+    });
     if (!keepScroll) scrollToListTop();
   }
 
@@ -768,6 +879,8 @@
   function togglePick(id) {
     const s = byId.get(id);
     if (!s) return;
+    // Re-read first: another tab or the installed app may have changed picks.
+    picks = new Set(readJSON(localStorageSafe(), PICKS_KEY, [...picks]));
     const had = picks.has(id);
     if (had) picks.delete(id);
     else picks.add(id);
@@ -779,22 +892,24 @@
     }
     // Re-render so overlap warnings and the My picks view stay right.
     const y = window.scrollY;
-    renderChips();
-    renderList();
-    renderDays();
+    keepFocus(() => {
+      renderChips();
+      renderList();
+      renderDays();
+      if ($('#session-sheet').open && currentSessionId()) {
+        const scroll = $('#session-sheet .sheet-body').scrollTop;
+        $('#session-sheet').innerHTML = sessionSheetHtml(byId.get(currentSessionId()));
+        $('#session-sheet .sheet-body').scrollTop = scroll;
+      }
+    });
     window.scrollTo({ top: y });
-    if ($('#session-sheet').open && currentSessionId()) {
-      const scroll = $('#session-sheet .sheet-body').scrollTop;
-      $('#session-sheet').innerHTML = sessionSheetHtml(byId.get(currentSessionId()));
-      $('#session-sheet .sheet-body').scrollTop = scroll;
-    }
     toast(had ? 'Removed from My picks' : 'Added to My picks', had ? { label: 'Undo', run: () => togglePick(id) } : null);
   }
 
   async function share(id) {
     const s = byId.get(id);
-    const url = new URL(buildUrl(id), location.href);
-    url.searchParams.delete('now');
+    // Just the session, not the sender's search or filters.
+    const url = new URL(`${location.pathname}?s=${encodeURIComponent(id)}`, location.href);
     const data = { title: s.title, text: `${s.title} · ${dayShort(s.date)} ${s.start} · ${s.room}`, url: url.href };
     try {
       if (navigator.share) {
@@ -837,16 +952,27 @@
     if (!sessions.length) return;
     const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//view26//VIEW 2026 program//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-CALNAME:VIEW 2026 picks'];
     for (const s of sessions) {
-      const people = s._people.map((p) => `${p.name}${p.title ? ` (${p.title})` : ''}`).join(', ');
+      const people = roleGroups(s)
+        .map((g) => {
+          const names = g.people
+            .map((p) => {
+              const sp = speakerById.get(p.id);
+              const extra = [sp.title, p.remote ? 'remote' : ''].filter(Boolean).join(', ');
+              return `${sp.name}${extra ? ` (${extra})` : ''}`;
+            })
+            .join(', ');
+          return !g.role ? `With ${names}` : g.role === 'Moderator' ? `Moderator: ${names}` : `${g.role} ${names}`;
+        })
+        .join('. ');
       lines.push(
         'BEGIN:VEVENT',
         `UID:${s.id}@view26-program`,
         'DTSTAMP:20261001T000000Z',
         `DTSTART:${icsStamp(romeToUtc(s.date, s.start))}`,
-        `DTEND:${icsStamp(romeToUtc(s.date, s.end))}`,
+        `DTEND:${icsStamp(endUtcOf(s))}`,
         `SUMMARY:${icsEscape(s.title)}`,
-        `LOCATION:${icsEscape(`${s.room}, ${venueAddress(s.venue)}`)}`,
-        `DESCRIPTION:${icsEscape(`${s.typeLabel}${people ? ` with ${people}` : ''}${s.url ? `\n${s.url}` : ''}`)}`,
+        `LOCATION:${icsEscape([s.room, venueAddress(s.venue)].filter(Boolean).join(', '))}`,
+        `DESCRIPTION:${icsEscape(`${s.typeLabel}${people ? `. ${people}` : ''}${s.url ? `\n${s.url}` : ''}`)}`,
         ...(s.url ? [`URL:${s.url}`] : []),
         'END:VEVENT',
       );
@@ -918,12 +1044,16 @@
       state.day = date;
       writeJSON(sessionStorageSafe(), DAY_KEY, { day: date, on: now().date });
       if (finding()) {
+        if (!document.getElementById(`d-${date}`) && date < now().date && !state.showPast) {
+          state.showPast = true;
+          keepFocus(renderList);
+        }
         const section = document.getElementById(`d-${date}`);
         if (section) section.scrollIntoView({ block: 'start' });
         else toast(`No matches on ${dayShort(date)}`);
         return;
       }
-      render();
+      keepFocus(render);
       window.scrollTo({ top: 0 });
       return;
     }
@@ -944,6 +1074,11 @@
       case 'picks':
         state.picksOnly = !state.picksOnly;
         changed();
+        break;
+      case 'show-past':
+        state.showPast = true;
+        renderList();
+        $('#list .card-link')?.focus({ preventScroll: true });
         break;
       case 'clear':
         clearAll();
@@ -1045,10 +1180,57 @@
     if ('ResizeObserver' in window) new ResizeObserver(set).observe(bar);
   }
 
+  let programText = null;
   async function loadProgram() {
     const res = await fetch('data/program.json', { cache: 'no-cache' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return res.json();
+    const text = await res.text();
+    const data = JSON.parse(text);
+    programText = text;
+    return data;
+  }
+
+  // Pick up program changes (room moves, new sessions) while the app stays
+  // open, without losing the user's place.
+  let lastRefresh = 0;
+  async function refreshProgram() {
+    if (Date.now() - lastRefresh < 60 * 1000) return;
+    lastRefresh = Date.now();
+    let text;
+    try {
+      const res = await fetch('data/program.json', { cache: 'no-cache' });
+      if (!res.ok) return;
+      text = await res.text();
+    } catch {
+      return;
+    }
+    if (text === programText) return;
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      return;
+    }
+    programText = text;
+    byId.clear();
+    speakerById.clear();
+    topicByKey.clear();
+    prepare(data);
+    if (!dayOf(state.day)) state.day = pickDefaultDay();
+    for (const k of [...state.topics]) if (!topicByKey.has(k)) state.topics.delete(k);
+    for (const id of [...state.speakers]) if (!speakerById.has(id)) state.speakers.delete(id);
+    const y = window.scrollY;
+    renderFooter();
+    render();
+    window.scrollTo({ top: y });
+    const open = currentSessionId();
+    if ($('#session-sheet').open && open && byId.has(open)) {
+      const scroll = $('#session-sheet .sheet-body').scrollTop;
+      $('#session-sheet').innerHTML = sessionSheetHtml(byId.get(open));
+      $('#session-sheet .sheet-body').scrollTop = scroll;
+    }
+    if ($('#filter-sheet').open) updateFilterSheet();
+    toast('Program updated');
   }
 
   async function boot() {
@@ -1059,6 +1241,8 @@
     try {
       prepare(await loadProgram());
     } catch (err) {
+      for (const el of [$('#q'), $('#filter-btn'), $('#info-btn')]) el.disabled = true;
+      $('#status').textContent = 'Couldn’t load the program';
       $('#list').innerHTML = `<div class="empty"><h2>Couldn’t load the program</h2><p>Check your connection and try again.</p>
         <div class="actions"><button type="button" class="btn primary" onclick="location.reload()">Try again</button>
         <a class="btn" href="https://www.viewconference.it/assets/html/view_CET.html">Official program</a></div></div>`;
@@ -1079,8 +1263,8 @@
       changed();
       $('#q').focus();
     });
-    $('#filter-btn').addEventListener('click', showFilters);
-    $('#info-btn').addEventListener('click', showInfo);
+    $('#filter-btn').addEventListener('click', () => showFilters());
+    $('#info-btn').addEventListener('click', () => showInfo());
     $('#now-btn').addEventListener('click', jumpToNow);
     document.addEventListener('keydown', (e) => {
       if (e.key === '/' && !openSheet && document.activeElement?.tagName !== 'INPUT') {
@@ -1089,15 +1273,42 @@
       }
     });
     renderFooter();
+    lastToday = now().date;
     render();
+    const restored = history.state && history.state.sheet;
     if (openId && byId.has(openId)) {
-      // Opened from a shared link: put a plain entry underneath so Back lands on the list.
-      history.replaceState(null, '', buildUrl());
-      showSession(openId);
+      if (restored === 'session') {
+        // Reloaded with the sheet open: the list entry is already underneath.
+        showSession(openId, { push: false });
+      } else {
+        // Opened from a shared link: put a plain entry underneath so Back lands on the list.
+        history.replaceState(null, '', buildUrl());
+        showSession(openId);
+      }
+    } else {
+      if (openId || restored === 'session') history.replaceState(null, '', buildUrl());
+      if (openId) toast('That session is no longer in the program');
+      if (restored === 'filters') showFilters({ push: false });
+      else if (restored === 'info') showInfo({ push: false });
     }
     setInterval(tick, 30 * 1000);
+    setInterval(() => {
+      if (document.visibilityState === 'visible') refreshProgram();
+    }, 5 * 60 * 1000);
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') tick();
+      if (document.visibilityState === 'visible') {
+        tick();
+        refreshProgram();
+      }
+    });
+    window.addEventListener('online', refreshProgram);
+    // Picks changed in another tab or in the installed app.
+    window.addEventListener('storage', (e) => {
+      if (e.key !== PICKS_KEY) return;
+      picks = new Set(readJSON(localStorageSafe(), PICKS_KEY, []));
+      const y = window.scrollY;
+      render();
+      window.scrollTo({ top: y });
     });
   }
 
