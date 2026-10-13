@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1267@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261015T093000Z
+DTEND:20261015T103000Z
+SUMMARY:Acquisition and Investment: Promise and Peril
+LOCATION:MEZZANINO\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Panel with Gary Mundell (CEO & Co-Founder\, LOFTAPPS)\, David 
+ Li (Founder & Chairman of the Board\, Dream Machine VFX)\, Chris Spry (Ma
+ naging Director\, FIN VFX)\nhttps://www.viewconference.it/article/1267
+URL:https://www.viewconference.it/article/1267
+END:VEVENT
+END:VCALENDAR

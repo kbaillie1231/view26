@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1284@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T070000Z
+DTEND:20261014T080000Z
+SUMMARY:Spider-Man: Brand New Day
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Jerome Chen (Overall VFX Supervisor\, Spider-Man: Br
+ and New Day\, Marvel Studios)\nhttps://www.viewconference.it/article/1284
+URL:https://www.viewconference.it/article/1284
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:portfolio-reviews-in-concept-art-for-film-games-12@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T091500Z
+DTEND:20261012T101500Z
+SUMMARY:Portfolio Reviews in Concept Art for Film & Games
+LOCATION:ITS 9\, ITS ICT - Piazza dei Mestieri - Via Jacopo Durandi\, 13 -
+  Torino
+DESCRIPTION:Portfolio Reviews with Valeriia Konstantinova (Junior Concept 
+ Artist\, Atomhawk Design Ltd\, Co-Director & Team Lead\, Women in Concept
+  Art)\, Emily Bland (Junior Concept Artist\, Industrial Light & Magic\, F
+ ounder & Co-Director\, Women in Concept Art)
+END:VEVENT
+END:VCALENDAR

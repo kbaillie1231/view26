@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:teaching-at-scale-learning-as-one-ai-digital-twins-e-learning-and-neur
+ odivergent-design-12@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T070000Z
+DTEND:20261012T080000Z
+SUMMARY:Teaching at Scale\, Learning as One: AI Digital Twins\, e-Learning
+  and Neurodivergent Design
+LOCATION:POLIFUNZIONALE\, ITS ICT - Piazza dei Mestieri - Via Jacopo Duran
+ di\, 13 - Torino
+DESCRIPTION:Masterclass with Simone Favarin (Professor & Multidisciplinary
+  Designer\, Co-Founder & CTO\, Shorium)
+END:VEVENT
+END:VCALENDAR

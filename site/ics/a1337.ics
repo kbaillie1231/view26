@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1337@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T104500Z
+DTEND:20261014T114500Z
+SUMMARY:The State of VFX: Navigating a Changing Market
+LOCATION:MEZZANINO\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Panel with Jeff Dillinger (Creative Producer/Director)\, Jonat
+ han Harris (CEO / VFX Supervisor\, Dupe Visual Effects)\, Gary Mundell (C
+ EO & Co-Founder\, LOFTAPPS)\, Hitesh Shah (Founder and Chairman\, BOT VFX
+ )\, Thierry Levy (Executive Producer\, Framestore)\, Heiko Burkardsmaier 
+ (VFX Executive Producer\, Head of Business/Legal Affairs\, Accenture Song
+  VFX)\nhttps://www.viewconference.it/article/1337
+URL:https://www.viewconference.it/article/1337
+END:VEVENT
+END:VCALENDAR

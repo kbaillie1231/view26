@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1350@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T143000Z
+DTEND:20261012T150000Z
+SUMMARY:Women Speed Networking Meet-up with London ACM SIGGRAPH
+LOCATION:ITS 4\, ITS ICT - Piazza dei Mestieri - Via Jacopo Durandi\, 13 -
+  Torino
+DESCRIPTION:Talk with Kate Gabriel (Creative Director\, The Mayda Creative
+  Co)\, Beata Parczewska (Chair\, London ACM SIGGRAPH\, 3D Artist / Motion
+  Designer)\, Eva Krpanov (Treasurer\, London ACM Siggraph\, VFX Productio
+ n Coordinator)\nhttps://www.viewconference.it/article/1350
+URL:https://www.viewconference.it/article/1350
+END:VEVENT
+END:VCALENDAR

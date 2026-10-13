@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1356@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261015T154500Z
+DTEND:20261015T164500Z
+SUMMARY:Storytelling with Virtual Production: Behind the Scenes of "Chase 
+ Your Dreams"
+LOCATION:BINARIO3\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Wayne Miller (Executive Producer/Head of Production\
+ , Texas A&M University\, Virtual Production Institute)\nhttps://www.viewc
+ onference.it/article/1356
+URL:https://www.viewconference.it/article/1356
+END:VEVENT
+END:VCALENDAR

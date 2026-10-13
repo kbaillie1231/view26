@@ -4,13 +4,14 @@
 //
 // Usage: node scripts/parse-program.mjs [input.html] [output.json]
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { dirname } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import { load } from 'cheerio';
 
 const INPUT = process.argv[2] || 'data/source/view_CET.html';
 const OUTPUT = process.argv[3] || 'site/data/program.json';
 const ARTICLES = 'data/articles.json';
+const ICS_DIR = join(dirname(OUTPUT), '..', 'ics');
 const SOURCE_URL = 'https://www.viewconference.it/assets/html/view_CET.html';
 const MIN_SESSIONS = 60;
 
@@ -327,10 +328,16 @@ for (const s of sessions) delete s.srcId;
 const usedTypes = TYPE_ORDER.filter((t) => sessions.some((s) => s.type === t));
 for (const s of sessions) if (!usedTypes.includes(s.type)) usedTypes.push(s.type);
 
-const speakerList = [...speakers.values()].sort((a, b) => {
-  const last = (n) => n.split(' ').slice(-1)[0];
-  return last(a.name).localeCompare(last(b.name), 'en', { sensitivity: 'base' }) || a.name.localeCompare(b.name);
-});
+// Sort by surname, ignoring honorifics and post-nominals ("Michael McCusker ACE").
+const SUFFIXES = new Set(['ace', 'asc', 'bsc', 'cbe', 'ias', 'jr', 'sr', 'ii', 'iii', 'phd', 'ves', 'csc', 'gsc']);
+const surname = (n) => {
+  const words = n.replace(/"[^"]*"/g, ' ').split(/\s+/).filter(Boolean);
+  while (words.length > 1 && SUFFIXES.has(words[words.length - 1].toLowerCase().replace(/[^a-z]/g, ''))) words.pop();
+  return words[words.length - 1] || n;
+};
+const speakerList = [...speakers.values()].sort(
+  (a, b) => surname(a.name).localeCompare(surname(b.name), 'en', { sensitivity: 'base' }) || a.name.localeCompare(b.name, 'en'),
+);
 
 const out = {
   conference: pageTitle.replace(/\s*Program.*$/i, ''),
@@ -361,3 +368,66 @@ if (errors.length) {
 mkdirSync(dirname(OUTPUT), { recursive: true });
 writeFileSync(OUTPUT, JSON.stringify(out, null, 1) + '\n');
 console.log(`Wrote ${OUTPUT}`);
+
+// One .ics per session, served as a real file so phones open it straight
+// into the calendar app.
+rmSync(ICS_DIR, { recursive: true, force: true });
+mkdirSync(ICS_DIR, { recursive: true });
+for (const s of sessions) writeFileSync(join(ICS_DIR, `${s.id}.ics`), sessionIcs(s));
+console.log(`Wrote ${sessions.length} calendar files to ${ICS_DIR}`);
+
+function romeToUtc(date, time) {
+  const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  const [y, m, d] = date.split('-').map(Number);
+  const [hh, mm] = time.split(':').map(Number);
+  const wall = Date.UTC(y, m - 1, d, hh, mm);
+  let guess = wall;
+  for (let i = 0; i < 2; i++) {
+    const p = Object.fromEntries(fmt.formatToParts(new Date(guess)).map((x) => [x.type, x.value]));
+    guess += wall - Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute);
+  }
+  return new Date(guess);
+}
+
+function sessionIcs(s) {
+  const stamp = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const escText = (t) => String(t).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1');
+  const fold = (line) => {
+    const parts = [];
+    let cur = '';
+    let bytes = 0;
+    for (const ch of line) {
+      const b = Buffer.byteLength(ch);
+      if (bytes + b > 74) {
+        parts.push(cur);
+        cur = ' ';
+        bytes = 1;
+      }
+      cur += ch;
+      bytes += b;
+    }
+    parts.push(cur);
+    return parts.join('\r\n');
+  };
+  const venue = venues.find((v) => norm(v.where).startsWith(norm(s.venue || '').slice(0, 3)));
+  const people = [...s.speakers, ...s.moderators].map((k) => speakers.get(k)).map((p) => `${p.name}${p.title ? ` (${p.title})` : ''}`).join(', ');
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//view26//VIEW 2026 program//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:${s.id}@view26-program`,
+    'DTSTAMP:20261001T000000Z',
+    `DTSTART:${stamp(romeToUtc(s.date, s.start))}`,
+    `DTEND:${stamp(romeToUtc(s.date, s.end))}`,
+    `SUMMARY:${escText(s.title)}`,
+    `LOCATION:${escText(`${s.room}, ${venue ? venue.where : s.venue}`)}`,
+    `DESCRIPTION:${escText(`${s.typeLabel}${people ? ` with ${people}` : ''}${s.url ? `\n${s.url}` : ''}`)}`,
+    ...(s.url ? [`URL:${s.url}`] : []),
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ];
+  return lines.map(fold).join('\r\n') + '\r\n';
+}

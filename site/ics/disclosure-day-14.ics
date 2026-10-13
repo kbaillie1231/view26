@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:disclosure-day-14@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T183000Z
+DTEND:20261014T210000Z
+SUMMARY:Disclosure Day
+LOCATION:CINEMA MASSIMO\, Cinema Massimo\, Via Giuseppe Verdi\, 18 - Torin
+ o
+DESCRIPTION:Screening with Matthew E. Butler (Production VFX Supervisor\, 
+ Disclosure Day)\, Joel Behrens (VFX Supervisor\, Disclosure Day\, Digital
+  Domain)\, Liz Bernard (Animation Supervisor\, Disclosure Day\, Digital D
+ omain)
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1221@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261016T143000Z
+DTEND:20261016T153000Z
+SUMMARY:VFX of Project Hail Mary
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Paul Lambert (VFX Co-Supervisor\, Project Hail Mary)
+ \, Mag Sarnowska (VFX Co-Supervisor\, Project Hail Mary)\nhttps://www.vie
+ wconference.it/article/1221
+URL:https://www.viewconference.it/article/1221
+END:VEVENT
+END:VCALENDAR

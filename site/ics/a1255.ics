@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1255@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T104500Z
+DTEND:20261014T114500Z
+SUMMARY:VFX of House of the Dragon\, Season 3
+LOCATION:BINARIO3\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Dadi Einarsson (Overall VFX Supervisor\, House of th
+ e Dragon Season 3\, VES\, BAFTA\, Primetime Emmy winner)\nhttps://www.vie
+ wconference.it/article/1255
+URL:https://www.viewconference.it/article/1255
+END:VEVENT
+END:VCALENDAR

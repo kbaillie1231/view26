@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1306@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T131500Z
+DTEND:20261012T141500Z
+SUMMARY:Training the Next Generation of Storytellers
+LOCATION:ITS TEATRO\, ITS ICT - Piazza dei Mestieri - Via Jacopo Durandi\,
+  13 - Torino
+DESCRIPTION:Panel with Tim McLaughlin (Dean\, School of Performance\, Visu
+ alization & Fine Arts\, Texas A&M University)\, Simon Davies (Talent Acqu
+ isition Leader & Founder\, DAX | Digital Arts Xchange)\, Debra Coleman (F
+ ounder\, Career and Leadership Coach\, Open Frame Coaching)\, Eugenie Pon
+ cet (Director\, Campus Artisan de l’Image\, and Producer\, Walking with
+  Animators)\, Dr. Oliver Mag Gingrich (Programme Lead\, BA (Hons) Animati
+ on\, University of Greenwich\, School of Design & Creative Industries)\, 
+ Brooke Keesling (CalArts Instructor & ASIFA Hollywood Vice President Emer
+ itus)\, Saint John Walker (Programme Leader\, Postgraduate Media\, Univer
+ sity of Hertfordshire)\nhttps://www.viewconference.it/article/1306
+URL:https://www.viewconference.it/article/1306
+END:VEVENT
+END:VCALENDAR

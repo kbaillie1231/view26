@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1345@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T070000Z
+DTEND:20261012T090000Z
+SUMMARY:VFX Art History
+LOCATION:ITS 9\, ITS ICT - Piazza dei Mestieri - Via Jacopo Durandi\, 13 -
+  Torino
+DESCRIPTION:Workshop with Trent Claus (VFX Supervisor\, Lola Visual Effect
+ s)\nhttps://www.viewconference.it/article/1345
+URL:https://www.viewconference.it/article/1345
+END:VEVENT
+END:VCALENDAR

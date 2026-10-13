@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1307@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T143000Z
+DTEND:20261012T154500Z
+SUMMARY:Leadership & Mentoring: Training the Next Generation of Leaders
+LOCATION:POLIFUNZIONALE\, ITS ICT - Piazza dei Mestieri - Via Jacopo Duran
+ di\, 13 - Torino
+DESCRIPTION:Panel with Eloi Champagne (Head\, Technical Direction and Prod
+ uction Technology\, National Film Board of Canada)\, Jan-Bart van Beek (S
+ tudio Director & Studio Art & Animation Director\, Guerrilla Games)\, Dyl
+ an Sisson (Head of RenderMan Creative Engagement\, Pixar Animation Studio
+ s)\, Janet Lewin (Senior Vice President\, General Manager\, and Head\, IL
+ M)\, Michelle Grady (President\, Sony Pictures Imageworks)\, Holly Edward
+ s (President\, Skydance Animation)\, Emily Bland (Junior Concept Artist\,
+  Industrial Light & Magic\, Founder & Co-Director\, Women in Concept Art)
+ \, Isobel Hine (Mid Concept Artist\, INT/Night\, Founder/Director of WCAA
+ )\, Saint John Walker (Programme Leader\, Postgraduate Media\, University
+  of Hertfordshire)\nhttps://www.viewconference.it/article/1307
+URL:https://www.viewconference.it/article/1307
+END:VEVENT
+END:VCALENDAR

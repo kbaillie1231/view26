@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:behind-the-pixels-what-does-production-actually-do-12@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T104500Z
+DTEND:20261012T114500Z
+SUMMARY:Behind the Pixels: What Does Production Actually Do?
+LOCATION:ITS TEATRO\, ITS ICT - Piazza dei Mestieri - Via Jacopo Durandi\,
+  13 - Torino
+DESCRIPTION:Panel with Apollonia Hartmann (VFX Producer\, Accenture Song V
+ FX)\, Beata Parczewska (Chair\, London ACM SIGGRAPH\, 3D Artist / Motion 
+ Designer)\, Agata M. Soccini (Researcher\, Head of the VR Lab\, Universit
+ y of Torino)\, Eva Krpanov (Treasurer\, London ACM Siggraph\, VFX Product
+ ion Coordinator)\, Benjy Riehl (Global Head of Business Development\, Pro
+ of Inc)
+END:VEVENT
+END:VCALENDAR

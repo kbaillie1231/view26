@@ -154,16 +154,6 @@
  ],
  "speakers": [
   {
-   "id": "michaelmccuskerace",
-   "name": "Michael McCusker ACE",
-   "title": "Award-winning Editor",
-   "url": "https://www.viewconference.it/speaker/michael-mccusker-ace",
-   "sessions": [
-    "a1266"
-   ],
-   "photo": null
-  },
-  {
    "id": "gastonalvarez",
    "name": "Gaston Alvarez",
    "title": "Virtual Production & VFX Supervisor",
@@ -900,16 +890,6 @@
    "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/09/29/chrishurtt_512x512.jpg"
   },
   {
-   "id": "sanjayjajuias",
-   "name": "Sanjay Jaju IAS",
-   "title": "Chief Secretary, Government of Telangana",
-   "url": "https://www.viewconference.it/speaker/sanjay-jaju-ias",
-   "sessions": [
-    "a1355"
-   ],
-   "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/10/03/sanjayjaju_512x512.jpg"
-  },
-  {
    "id": "andrewjackson",
    "name": "Andrew Jackson",
    "title": "Overall VFX Supervisor, DNEG VFX, Oscar winner",
@@ -918,6 +898,16 @@
     "a1331"
    ],
    "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2020/10/12/andrew-jackson-edit_512x512.JPG"
+  },
+  {
+   "id": "sanjayjajuias",
+   "name": "Sanjay Jaju IAS",
+   "title": "Chief Secretary, Government of Telangana",
+   "url": "https://www.viewconference.it/speaker/sanjay-jaju-ias",
+   "sessions": [
+    "a1355"
+   ],
+   "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/10/03/sanjayjaju_512x512.jpg"
   },
   {
    "id": "sachithakalingamudali",
@@ -1140,6 +1130,16 @@
    "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2019/06/14/terrencemasson-headshot_512x512.jpg"
   },
   {
+   "id": "michaelmccuskerace",
+   "name": "Michael McCusker ACE",
+   "title": "Award-winning Editor",
+   "url": "https://www.viewconference.it/speaker/michael-mccusker-ace",
+   "sessions": [
+    "a1266"
+   ],
+   "photo": null
+  },
+  {
    "id": "chrismclaughlin",
    "name": "Chris McLaughlin",
    "title": "VFX Supervisor, DNEG",
@@ -1306,18 +1306,6 @@
     "a1350"
    ],
    "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2023/10/06/beataparczewska_512x512.jpg"
-  },
-  {
-   "id": "carlosvilchisphd",
-   "name": "Carlos Vilchis Ph.D.",
-   "title": "Faculty, Johnny Carson Center for Emerging Media Arts, University of Nebraska-Lincoln",
-   "url": "https://www.viewconference.it/speaker/carlos-vilchis-phd",
-   "sessions": [
-    "a1334",
-    "building-the-right-virtual-production-ecosystem-facing-ai-trends-14",
-    "hybrid-tracking-workflows-for-virtual-production-15"
-   ],
-   "photo": null
   },
   {
    "id": "marcstpierre",
@@ -1693,6 +1681,18 @@
     "a1276"
    ],
    "photo": "https://s3.amazonaws.com/view-conference-www/assets/author/2026/07/18/brunovelazquez_512x512.JPG"
+  },
+  {
+   "id": "carlosvilchisphd",
+   "name": "Carlos Vilchis Ph.D.",
+   "title": "Faculty, Johnny Carson Center for Emerging Media Arts, University of Nebraska-Lincoln",
+   "url": "https://www.viewconference.it/speaker/carlos-vilchis-phd",
+   "sessions": [
+    "a1334",
+    "building-the-right-virtual-production-ecosystem-facing-ai-trends-14",
+    "hybrid-tracking-workflows-for-virtual-production-15"
+   ],
+   "photo": null
   },
   {
    "id": "nikolavucenovic",

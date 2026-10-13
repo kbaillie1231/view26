@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1261@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261016T070000Z
+DTEND:20261016T080000Z
+SUMMARY:Toy Story 5 Behind the Scenes
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Kenna Harris (Co-Director & Co-Writer\, Toy Story 5\
+ , Pixar Animation Studios)\nhttps://www.viewconference.it/article/1261
+URL:https://www.viewconference.it/article/1261
+END:VEVENT
+END:VCALENDAR

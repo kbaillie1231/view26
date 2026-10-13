@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ilm-50-years-of-innovation-book-signing-15@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261015T164500Z
+DTEND:20261015T173000Z
+SUMMARY:ILM: 50 Years of Innovation Book Signing
+LOCATION:BOOKSTORE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Signing with Hal Hickel (Animation Director\, Industrial Light
+  & Magic (ILM)\, Oscar\, BAFTA winner)\, Janet Lewin (Senior Vice Preside
+ nt\, General Manager\, and Head\, ILM)\, Ian Failes (Editor\, befores & a
+ fters)
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1269@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261015T120000Z
+DTEND:20261015T130000Z
+SUMMARY:Masters of the Universe with Proof Inc.
+LOCATION:MEZZANINO\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Benjy Riehl (Global Head of Business Development\, P
+ roof Inc)\nhttps://www.viewconference.it/article/1269
+URL:https://www.viewconference.it/article/1269
+END:VEVENT
+END:VCALENDAR

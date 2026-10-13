@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:building-the-right-virtual-production-ecosystem-facing-ai-trends-14@vi
+ ew26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T070000Z
+DTEND:20261014T080000Z
+SUMMARY:Building the Right Virtual Production Ecosystem Facing AI Trends
+LOCATION:MEZZANINO\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Carlos Vilchis Ph.D. (Faculty\, Johnny Carson Center
+  for Emerging Media Arts\, University of Nebraska-Lincoln)
+END:VEVENT
+END:VCALENDAR

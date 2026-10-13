@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1314@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T143000Z
+DTEND:20261014T153000Z
+SUMMARY:Dinosaurs\, Jungle & Pipeline: Behind the Craft of Paw Patrol: The
+  Dino Movie
+LOCATION:BINARIO3\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Sylvain Salame (VFX Supervisor\, Mikros Animation)\n
+ https://www.viewconference.it/article/1314
+URL:https://www.viewconference.it/article/1314
+END:VEVENT
+END:VCALENDAR

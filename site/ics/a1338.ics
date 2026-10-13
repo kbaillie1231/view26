@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1338@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261012T093000Z
+DTEND:20261012T103000Z
+SUMMARY:Storytelling and Sustainability with Special Screening of ReRooted
+LOCATION:ITS TEATRO\, ITS ICT - Piazza dei Mestieri - Via Jacopo Durandi\,
+  13 - Torino
+DESCRIPTION:Talk with Delphine Coudray (Head of Operations\, Animation Ire
+ land)\nhttps://www.viewconference.it/article/1338
+URL:https://www.viewconference.it/article/1338
+END:VEVENT
+END:VCALENDAR

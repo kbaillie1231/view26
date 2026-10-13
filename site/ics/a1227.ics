@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1227@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261015T093000Z
+DTEND:20261015T103000Z
+SUMMARY:Hoppers
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Daniel Chong (Director\, HOPPERS\, Pixar Animation S
+ tudios)\, Nicole Paradis Grindle (Producer\, HOPPERS\, Pixar Animation St
+ udios)\nhttps://www.viewconference.it/article/1227
+URL:https://www.viewconference.it/article/1227
+END:VEVENT
+END:VCALENDAR

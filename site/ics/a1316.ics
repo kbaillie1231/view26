@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1316@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261014T154500Z
+DTEND:20261014T171500Z
+SUMMARY:The Sonic Circle of Trust
+LOCATION:MEZZANINO\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Workshop with Mark Ulano (Sound Engineer\, CAS\, AMPS\, Oscar 
+ winner)\, Patrushka Mierzwa (Boom Operator & Author)\nhttps://www.viewcon
+ ference.it/article/1316
+URL:https://www.viewconference.it/article/1316
+END:VEVENT
+END:VCALENDAR

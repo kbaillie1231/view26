@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1249@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261016T093000Z
+DTEND:20261016T103000Z
+SUMMARY:Modelmaking for Visual Effects in a Time of CGI
+LOCATION:FUCINE\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Simon Weisse (VFX Miniature Unit Supervisor and Prop
+ s Designer\, Atelier Simon Weisse)\, Lucy Weisse (Prop and Model Maker\, 
+ Atelier Simon Weisse)\nhttps://www.viewconference.it/article/1249
+URL:https://www.viewconference.it/article/1249
+END:VEVENT
+END:VCALENDAR

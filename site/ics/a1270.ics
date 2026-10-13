@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//view26//VIEW 2026 program//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:a1270@view26-program
+DTSTAMP:20261001T000000Z
+DTSTART:20261015T104500Z
+DTEND:20261015T114500Z
+SUMMARY:AI Done Right: Deep Editor Use Cases in the FALL Film Series
+LOCATION:BINARIO3\, OGR\, Corso Castelfidardo\, 22 - Torino
+DESCRIPTION:Talk with Hitesh Shah (Founder and Chairman\, BOT VFX)\, Scott
+  Mann (Cofounder and Co-CEO\, Flawless)\nhttps://www.viewconference.it/ar
+ ticle/1270
+URL:https://www.viewconference.it/article/1270
+END:VEVENT
+END:VCALENDAR
