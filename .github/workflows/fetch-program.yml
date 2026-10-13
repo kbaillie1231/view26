@@ -1,61 +1,73 @@
-name: Fetch official program
+name: Update program
 
-# Downloads the official VIEW Conference program page (and the assets it
-# loads) into data/source/ so it can be parsed into data/program.json.
+# Fetches the official VIEW Conference program page, parses it into
+# site/data/program.json and commits the result when it changed. Netlify
+# redeploys on every push, so the app stays in sync with the official program.
+# The parser exits non-zero on anything that doesn't look like a complete
+# program, in which case nothing is committed and the live data is untouched.
 on:
+  schedule:
+    # Every 20 minutes, 07:00-22:59 Turin time (05-20 UTC), Oct 12-16.
+    - cron: "*/20 5-20 12-16 10 *"
+  workflow_dispatch:
   push:
     paths:
       - .github/workflows/fetch-program.yml
-  workflow_dispatch:
+      - scripts/parse-program.mjs
+      - scripts/fetch-articles.mjs
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-program
+  cancel-in-progress: false
+
 jobs:
-  fetch:
+  update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download program page and linked assets
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      - name: Download official program page
         run: |
           set -euo pipefail
-          BASE="https://www.viewconference.it"
-          UA="Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
-          OUT=data/source
-          mkdir -p "$OUT"
-          curl -sSL --fail -A "$UA" -D "$OUT/view_CET.headers.txt" \
-            "$BASE/assets/html/view_CET.html?v=56" -o "$OUT/view_CET.html"
-          ls -la "$OUT"
-          # Fetch same-site scripts/styles the page references, in case the
-          # sessions are rendered from JS/JSON rather than static HTML.
-          grep -oE '(src|href)="[^"]+"' "$OUT/view_CET.html" | sed -E 's/^(src|href)="//; s/"$//' | sort -u > "$OUT/referenced.txt" || true
-          cat "$OUT/referenced.txt"
-          mkdir -p "$OUT/assets"
-          while read -r ref; do
-            case "$ref" in
-              http*://www.viewconference.it/*|http*://viewconference.it/*) url="$ref" ;;
-              http*|//*|mailto:*|\#*|data:*) continue ;;
-              /*) url="$BASE$ref" ;;
-              *) url="$BASE/assets/html/$ref" ;;
-            esac
-            case "$url" in
-              *.js*|*.json*|*.css*) ;;
-              *) continue ;;
-            esac
-            name=$(echo "$url" | sed -E 's#^https?://##; s#[^A-Za-z0-9._-]#_#g')
-            curl -sSL --fail -A "$UA" "$url" -o "$OUT/assets/$name" || echo "failed: $url"
-          done < "$OUT/referenced.txt"
-          ls -la "$OUT/assets"
+          curl -sSL --fail --retry 3 --retry-delay 5 \
+            -A "Mozilla/5.0 (compatible; view26-program-sync)" \
+            "https://www.viewconference.it/assets/html/view_CET.html?nocache=${GITHUB_RUN_ID}" \
+            -o data/source/view_CET.html
+          ls -la data/source/view_CET.html
 
-      - name: Commit downloaded files
+      - name: Fetch session descriptions
+        # New articles only, except a full refresh on manual runs and on the
+        # first scheduled run of each day.
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$(date -u +%H)" = "05" -a "$(date -u +%M)" -lt 20 ]; then
+            node scripts/fetch-articles.mjs --all
+          else
+            node scripts/fetch-articles.mjs
+          fi
+
+      - name: Parse into site/data/program.json
+        run: node scripts/parse-program.mjs
+
+      - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/source
+          git add data/source/view_CET.html data/articles.json site/data/program.json
           if git diff --cached --quiet; then
-            echo "No changes"
+            echo "Program unchanged"
           else
-            git commit -m "Fetch official VIEW 2026 program page"
+            git commit -m "Update program from viewconference.it"
+            git pull --rebase
             git push
           fi
